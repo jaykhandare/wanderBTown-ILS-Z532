@@ -30,7 +30,9 @@ $user_arr = array(
     "email" => $user->email,
     "username" => $user->username,
     "joiningDate" => $user->joiningDate,
+    "interest1" => $user->interest1,
+    "interest2" => $user->interest2,
+    "interest3" => $user->interest3
 );
-
 // make it json format
 print_r(json_encode($user_arr));

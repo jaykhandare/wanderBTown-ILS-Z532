@@ -8,38 +8,41 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/product.php';
+include_once '../objects/user.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-// prepare product object
-$product = new Product($db);
+// prepare user object
+$user = new User($db);
 
-// get id of product to be edited
+// get id of user to be edited
 $data = json_decode(file_get_contents("php://input"));
 
-// set ID property of product to be edited
-$product->id = $data->id;
+// set ID property of user to be edited
+$user->id = $data->id;
 
-// set product property values
-$product->name = $data->name;
-$product->price = $data->price;
-$product->description = $data->description;
-$product->category_id = $data->category_id;
+// set user property values
+$user->firstName = $data->firstName;
+$user->lastName = $data->lastName;
+$user->username = $data->username;
+$user->email = $data->email;
+$user->password = $data->password;
+$user->interest1 = $data->interest1;
+$user->interest2 = $data->interest2;
+$user->interest3 = $data->interest3;
 
-// update the product
-if($product->update()){
+// update the user
+if($user->update()){
     echo '{';
-    echo '"message": "Product was updated."';
+    echo '"message": "User was updated."';
     echo '}';
 }
-
-// if unable to update the product, tell the user
+// if unable to update the user, tell the user
 else{
     echo '{';
-    echo '"message": "Unable to update product."';
+    echo '"message": "Unable to update user."';
     echo '}';
 }
 ?>

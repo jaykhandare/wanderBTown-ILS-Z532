@@ -20,30 +20,26 @@ $num = $stmt->rowCount();
 
 // check if more than 0 record found
 if($num>0){
-
     // users array
     $users_arr=array();
     $users_arr["records"]=array();
-
     // retrieve our table contents
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         extract($row);
         $user_item=array(
-            "id" => $id,
-            "firstName" => $firstName,
-            "lastName" => $lastName,
-            "email" => $email,
-            "username" => $username,
-            "joiningDate" => $joiningDate,
+            "id" =>  $user->id,
+            "firstName" => $user->firstName,
+            "lastName" => $user->lastName,
+            "email" => $user->email,
+            "username" => $user->username,
+            "joiningDate" => $user->joiningDate
         );
         array_push($users_arr["records"], $user_item);
     }
-
     echo json_encode($users_arr);
 }
-
 else{
     echo json_encode(
-        array("message" => "No products found.")
+        array("message" => "No records found.")
     );
 }

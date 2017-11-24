@@ -25,36 +25,20 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 }
 
 // set user property values
-$user->firstName = $_POST["firstName"];
-$user->lastName = $_POST["lastName"];
 $user->username = $_POST["username"];
-$user->email = $_POST["email"];
-$user->password = $_POST["password"];
+$user->interest1 = $_POST["interest1"];
+$user->interest2 = $_POST["interest2"];
+$user->interest3 = $_POST["interest3"];
 
-/*
-// get posted data
-$data = json_decode(file_get_contents("php://input"));
-
-// set user property values
-$user->firstName = $data->firstName;
-$user->lastName = $data->lastName;
-$user->username = $data->username;
-$user->email = $data->email;
-$user->password = $data->password;
-$user->interest1 = $data->interest1;
-$user->interest2 = $data->interest2;
-$user->interest3 = $data->interest3;
-*/
-
-// create the user
-if($user->create_user()){
+// add the user interest
+if($user->add_interests()){
     echo '{';
-    echo '"message": "User was added."';
+    echo '"message": "User interests were added."';
     echo '}';
 }
-// if unable to create the user, tell the user
+// if unable to add the user interests, tell the user
 else{
     echo '{';
-    echo '"message": "Unable to add the user."';
+    echo '"message": "Unable to add the user interests."';
     echo '}';
 }

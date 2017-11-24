@@ -9,34 +9,34 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object file
 include_once '../config/database.php';
-include_once '../objects/product.php';
+include_once '../objects/user.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-// prepare product object
-$product = new Product($db);
+// prepare user object
+$user = new User($db);
 
-// get product id
+// get user id
 $data = json_decode(file_get_contents("php://input"));
 $request = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
+
 echo "Method : ".$_SERVER['REQUEST_METHOD']." Data : ".$data;
 echo "              ";
-// set product id to be deleted
-$product->id = $data->id;
 
-// delete the product
-if($product->delete()){
+// set user id to be deleted
+$user->id = $data->id;
+
+// delete the user
+if($user->delete()){
     echo '{';
-    echo '"message": "Product was deleted."';
+    echo '"message": "user was deleted."';
     echo '}';
 }
-
-// if unable to delete the product
+// if unable to delete the user
 else{
     echo '{';
-    echo '"message": "Unable to delete object."';
+    echo '"message": "Unable to delete user."';
     echo '}';
 }
-?>

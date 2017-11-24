@@ -8,11 +8,14 @@
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 
+echo "HIT";
 
-echo $_GET['name'];
+echo 'Hello ' . htmlspecialchars($_POST["name"]) . '!';
 
-echo "Hello";
+//          http://localhost/wanderBTown-ILS-Z532/test.php
+
+//          Content-Type: application/json
