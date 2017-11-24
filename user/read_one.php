@@ -16,8 +16,14 @@ $db = $database->getConnection();
 // prepare user object
 $user = new User($db);
 
-// set ID property of user to be edited
-$user->id = isset($_GET['id']) ? $_GET['id'] : die();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["id"])) {
+        echo "id is required";
+    }
+    else {
+        $user->id = $_POST["id"];
+    }
+}
 
 // read the details of user to be edited
 $user->readOne();
@@ -30,9 +36,6 @@ $user_arr = array(
     "email" => $user->email,
     "username" => $user->username,
     "joiningDate" => $user->joiningDate,
-    "interest1" => $user->interest1,
-    "interest2" => $user->interest2,
-    "interest3" => $user->interest3
 );
 // make it json format
 print_r(json_encode($user_arr));

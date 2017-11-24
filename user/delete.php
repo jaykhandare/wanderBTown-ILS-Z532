@@ -18,20 +18,19 @@ $db = $database->getConnection();
 // prepare user object
 $user = new User($db);
 
-// get user id
-$data = json_decode(file_get_contents("php://input"));
-$request = filter_input(INPUT_SERVER, 'REQUEST_METHOD', FILTER_SANITIZE_ENCODED);
-
-echo "Method : ".$_SERVER['REQUEST_METHOD']." Data : ".$data;
-echo "              ";
-
-// set user id to be deleted
-$user->id = $data->id;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["username"])) {
+        echo "username is required";
+    }
+    else {
+        $user->username = $_POST["username"];
+    }
+}
 
 // delete the user
 if($user->delete()){
     echo '{';
-    echo '"message": "user was deleted."';
+    echo '"message": "User was deleted."';
     echo '}';
 }
 // if unable to delete the user

@@ -3,6 +3,7 @@
     <body>
 
     <form action="../user/create.php" method="post">
+        <p>Create User:</p>
         <p>First name: <input type="text" name="firstName" /></p>
         <p>Last name: <input type="text" name="lastName" /></p>
         <p>Desired username: <input type="text" name="username" /></p>
@@ -13,10 +14,44 @@
     </form>
 
     <form action="../user/addInterest.php" method="post">
+        <p>Add User Interests:</p>
         <p>Username: <input type="text" name="username" /></p>
         <p>Interest 1: <input type="text" name="interest1" /></p>
         <p>Interest 1: <input type="text" name="interest2" /></p>
         <p>Interest 1: <input type="text" name="interest3" /></p>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    <form action="../user/read.php" method="post">
+        <p>Read:</p>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    <form action="../user/read_one.php" method="post">
+        <p>ReadOne User:</p>
+        <p>id: <input type="text" name="id" /></p>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    <form action="../user/delete.php" method="post">
+        <p>Delete an User:</p>
+        <p>username: <input type="text" name="username" /></p>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    <form action="../user/search.php" method="post">
+        <p>Search:</p>
+        <p>searchString: <input type="text" name="searchString" /></p>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+    <form action="../user/update.php" method="post">
+        <p>Update User:</p>
+        <p>Username: <input type="text" name="username" /></p>
+        <p>New First Name: <input type="text" name="firstName" /></p>
+        <p>New Last Name: <input type="text" name="lastName" /></p>
+        <p>New Email-ID: <input type="email" name="email" /></p>
+        <p>New Password: <input type="password" name="password" /></p>
         <input type="submit" name="submit" value="Submit" />
     </form>
 

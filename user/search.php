@@ -14,8 +14,14 @@ $db = $database->getConnection();
 // initialize object
 $user = new User($db);
 
-// get keywords
-$keywords=isset($_GET["s"]) ? $_GET["s"] : "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["searchString"])) {
+        echo "searchString is required";
+    }
+    else {
+        $keywords = $_POST["searchString"];
+    }
+}
 
 // query user
 $stmt = $user->search($keywords);
@@ -24,26 +30,22 @@ $num = $stmt->rowCount();
 // check if more than 0 record found
 if($num>0){
     // users array
-    $users_arr=array();
     $users_arr["records"]=array();
     // retrieve our table contents
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        // extract row
-        extract($row);
+    while ($num!=0){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $user_item=array(
-            "id" =>  $user->id,
-            "firstName" => $user->firstName,
-            "lastName" => $user->lastName,
-            "email" => $user->email,
-            "username" => $user->username,
-            "joiningDate" => $user->joiningDate,
-            "interest1" => $user->interest1,
-            "interest2" => $user->interest2,
-            "interest3" => $user->interest3
+            "id" =>  $row['id'],
+            "firstName" => $row['firstName'],
+            "lastName" => $row['lastName'],
+            "email" => $row['email'],
+            "username" => $row['username'],
+            "joiningDate" => $row['joiningDate']
         );
         array_push($users_arr["records"], $user_item);
+        $num = $num - 1;
     }
-    echo json_encode($users_arr);
+    echo json_encode($users_arr["records"]);
 }
 else{
     echo json_encode(

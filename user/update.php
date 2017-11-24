@@ -16,22 +16,34 @@ $db = $database->getConnection();
 
 // prepare user object
 $user = new User($db);
-
-// get id of user to be edited
-$data = json_decode(file_get_contents("php://input"));
-
-// set ID property of user to be edited
-$user->id = $data->id;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["username"])) {
+        echo "username is required";
+    }
+    else {
+        $user->username = $_POST["username"];
+    }
+}
 
 // set user property values
-$user->firstName = $data->firstName;
-$user->lastName = $data->lastName;
-$user->username = $data->username;
-$user->email = $data->email;
-$user->password = $data->password;
-$user->interest1 = $data->interest1;
-$user->interest2 = $data->interest2;
-$user->interest3 = $data->interest3;
+if(isset($_POST["firstName"])) {
+    $user->firstName = $_POST["firstName"];
+}
+if(isset($_POST["lastName"])) {
+    $user->lastName = $_POST["lastName"];
+}
+if(isset($_POST["email"])) {
+    $user->email = $_POST["email"];
+}
+if(isset($_POST["password"])) {
+    $user->password = $_POST["password"];
+}
+
+#echo $user->username."    ";
+echo $user->firstName."   ";
+echo $user->lastName."     ";
+echo $user->email."     ";
+echo $user->password;
 
 // update the user
 if($user->update()){
@@ -45,4 +57,3 @@ else{
     echo '"message": "Unable to update user."';
     echo '}';
 }
-?>

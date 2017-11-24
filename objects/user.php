@@ -22,20 +22,6 @@ class User{
         $this->conn = $db;
     }
 
-    // read users
-    function read(){
-
-        // select all query
-         $query = "SELECT * FROM USERS";
-
-        // prepare query statement
-        $stmt = $this->conn->prepare($query);
-
-        // execute query
-        $stmt->execute();
-
-        return $stmt;
-    }
 
     // add a user
     function create_user(){
@@ -86,7 +72,21 @@ class User{
         }
     }
 
-    // used when filling up the update user form
+    // read users
+    function read(){
+
+        // select all query
+        $query = "SELECT * FROM USERS";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     function readOne(){
 
         // query to read single record
@@ -116,25 +116,18 @@ class User{
     function update(){
 
         // update query
-        $query = "UPDATE USERS
-            SET
-                firstName = :firstName,
-                lastName = :lastName,
-                email = :email,
-                password = :password,
-                username = :username
-            WHERE id = :id";
+        $query = "UPDATE USERS SET firstName = :firstName, lastName = :lastName, email = :email, password = :password
+                  WHERE username = :username";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
         // bind new values
-        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':firstName', $this->firstName);
         $stmt->bindParam(':lastName', $this->lastName);
-        $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
+        $stmt->bindParam(':username', $this->username);
 
         // execute the query
         if($stmt->execute()){
@@ -149,13 +142,13 @@ class User{
     function delete(){
 
         // delete query
-        $query = "DELETE FROM USERS WHERE id = ?";
+        $query = "DELETE FROM USERS WHERE username = ?";
 
         // prepare query
         $stmt = $this->conn->prepare($query);
 
         // bind id of record to delete
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(1, $this->username);
 
         // execute query
         if($stmt->execute()){
@@ -168,7 +161,6 @@ class User{
 
     // search users
     function search($keywords){
-
         // select all query
         $query = "SELECT * FROM USERS WHERE firstName LIKE ? OR lastName LIKE ? OR email LIKE ?";
 
@@ -177,7 +169,6 @@ class User{
 
         // some mumbo jumbo
         $keywords = "%{$keywords}%";
-
         // bind
         $stmt->bindParam(1, $keywords);
         $stmt->bindParam(2, $keywords);
