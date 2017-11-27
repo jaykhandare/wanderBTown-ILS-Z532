@@ -41,6 +41,16 @@ class Database{
             echo "Failed to create users table : " . $e->getMessage();
         }
 
+        // create table for posts and tags
+        try {
+            $sql_posts_table = "CREATE TABLE IF NOT EXISTS POSTS_TAGS (postID INT(6) UNSIGNED PRIMARY KEY, content VARCHAR(50) NOT NULL, userID INT(6) UNSIGNED, tag1 VARCHAR(15) NOT NULL, tag2 VARCHAR(15) NOT NULL, tag3 VARCHAR(15) NOT NULL, venue VARCHAR(20) NOT NULL, postDate TIMESTAMP,pic1 VARCHAR(30),pic2 VARCHAR(30),pic3 VARCHAR(30),likes INT(6) UNSIGNED)";
+            $this->conn->exec($sql_posts_table);
+        }
+        catch (PDOException $e)
+        {
+            echo "Failed to create posts table : " . $e->getMessage();
+        }
+
         return $this->conn;
     }
 }
