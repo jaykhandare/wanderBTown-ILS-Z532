@@ -161,6 +161,7 @@ class User{
 
     // search users
     function search($keywords){
+
         // select all query
         $query = "SELECT * FROM USERS WHERE firstName LIKE ? OR lastName LIKE ? OR email LIKE ?";
 
