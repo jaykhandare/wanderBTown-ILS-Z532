@@ -5,19 +5,14 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/post.php.php';
+include_once '../objects/post.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-
-echo "before";
-
 // prepare post object
 $post = new Post($db);
-
-echo "after";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["searchString"])) {
@@ -27,8 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $keywords = $_POST["searchString"];
     }
 }
-echo $keywords;
-
 
 // query post
 $stmt = $post->search($keywords);

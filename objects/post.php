@@ -90,8 +90,6 @@ class Post
         $stmt->bindParam(':pic3', $this->pic3);
         $stmt->bindParam(':postID', $this->postID);
 
-        echo $this->postID." ".$this->content." ".$this->tag1." ".$this->tag2." ".$this->tag3." ".$this->venue." ".$this->pic1." ".$this->pic2." ".$this->pic3." ".$this->likes." ";
-
         // execute the query
         if($stmt->execute()){
             return true;
