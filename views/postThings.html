@@ -2,59 +2,60 @@
 <html>
 <body>
 
-<form action="../product/create.php" method="post">
+<form action="../post/create.php" method="post">
     <p>Create A Post:</p>
     <p>content: <input type="text" name="content" /></p>
     <p>tag1: <input type="text" name="tag1" /></p>
-    <p>tag3: <input type="text" name="tag3" /></p>
+    <p>tag2: <input type="text" name="tag2" /></p>
     <p>tag3: <input type="text" name="tag3" /></p>
     <p>Venue: <input type="text" name="venue" /></p>
-    <p>pic1: <input type="email" name="pic1" /></p>
-    <p>pic2: <input type="email" name="pic2" /></p>
-    <p>pic3: <input type="email" name="pic3" /></p>
+    <p>userID: <input type="number" name="userID" /></p>
+    <p>pic1: <input type="text" name="pic1" /></p>
+    <p>pic2: <input type="text" name="pic2" /></p>
+    <p>pic3: <input type="text" name="pic3" /></p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 
-<form action="../product/likeAPost.php" method="post">
+<form action="../post/likeAPost.php" method="post">
     <p>Like A Post:</p>
     <p>postID: <input type="text" name="postID" /></p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 
-<form action="../product/read.php" method="post">
+<form action="../post/read.php" method="post">
     <p>Read Posts:</p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 
-<form action="../product/read_one.php" method="post">
+<form action="../post/read_one.php" method="post">
     <p>ReadOne Post:</p>
     <p>postID: <input type="text" name="postID" /></p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 
-<form action="../product/delete.php" method="post">
+<form action="../post/delete.php" method="post">
     <p>Delete A Post:</p>
     <p>postID: <input type="text" name="postID" /></p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 
-<form action="../product/search.php" method="post">
+<form action="../post/search.php" method="post">
     <p>Search in Post:</p>
     <p>searchString: <input type="text" name="searchString" /></p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 
-<form action="../product/update.php" method="post">
+<form action="../post/update.php" method="post">
     <p>Update A Post:</p>
-    <p>postID: <input type="text" name="postID" /></p>
+    <p>postID: <input type="number" name="postID" /></p>
     <p>content: <input type="text" name="content" /></p>
     <p>tag1: <input type="text" name="tag1" /></p>
-    <p>tag3: <input type="text" name="tag3" /></p>
+    <p>tag2: <input type="text" name="tag2" /></p>
     <p>tag3: <input type="text" name="tag3" /></p>
     <p>Venue: <input type="text" name="venue" /></p>
-    <p>pic1: <input type="email" name="pic1" /></p>
-    <p>pic2: <input type="email" name="pic2" /></p>
-    <p>pic3: <input type="email" name="pic3" /></p>
+    <p>pic1: <input type="text" name="pic1" /></p>
+    <p>pic2: <input type="text" name="pic2" /></p>
+    <p>pic3: <input type="text" name="pic3" /></p>
     <input type="submit" name="submit" value="Submit" />
 </form>
 

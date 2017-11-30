@@ -53,7 +53,6 @@ if(isset($_POST["pic3"])) {
 }
 
 
-
 // update the post
 if($post->update()){
     echo '{';

@@ -34,7 +34,10 @@ $post->pic1 = $_POST["pic1"];
 $post->pic2 = $_POST["pic2"];
 $post->pic3 = $_POST["pic3"];
 $post->likes = 0;
-$post->userID = "my userID";
+$post->userID = $_POST["userID"];
+
+//echo $post->content." ".$post->tag1." ".$post->tag2." ".$post->tag3." ".$post->venue." ".$post->pic1." ".$post->pic2." ".$post->pic3." ".$post->likes." ".$post->userID;
+
 
 // create a post
 if($post->create()){

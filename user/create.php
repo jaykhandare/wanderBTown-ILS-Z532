@@ -47,7 +47,7 @@ $user->interest3 = $data->interest3;
 */
 
 // create the user
-if($user->create_user()){
+if($user->create()){
     echo '{';
     echo '"message": "User was added."';
     echo '}';

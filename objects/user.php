@@ -24,7 +24,7 @@ class User{
 
 
     // add a user
-    function create_user(){
+    function create(){
 
         $firstName = $this->firstName;
         $lastName = $this->lastName;

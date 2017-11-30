@@ -22,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $keywords = $_POST["searchString"];
     }
 }
-
 // query user
 $stmt = $user->search($keywords);
 $num = $stmt->rowCount();

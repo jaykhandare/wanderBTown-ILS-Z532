@@ -40,9 +40,8 @@ class Post
         $userID = $this->userID;
 
         try {
-            $sql_add_post = "INSERT INTO POSTS_TAGS (postID,content,userID,tag1,tag2,tag3,venue,postDate,pic1,pic2,pic3,likes) VALUES (NULL,$content,$userID,$tag1,$tag2,$tag3,$venue,CURRENT_TIMESTAMP,$pic1,$pic2,$pic3,$likes)";
+            $sql_add_post = "INSERT INTO POSTS_TAGS (postID,content,userID,tag1,tag2,tag3,venue,pic1,pic2,pic3,likes,postDate) VALUES (NULL,'$content','$userID','$tag1','$tag2','$tag3','$venue','$pic1','$pic2','$pic3','$likes', CURRENT_TIMESTAMP )";
             $this->conn->exec($sql_add_post);
-
             return true;
         } catch (PDOException $e) {
             return false;
@@ -89,6 +88,9 @@ class Post
         $stmt->bindParam(':pic1', $this->pic1);
         $stmt->bindParam(':pic2', $this->pic2);
         $stmt->bindParam(':pic3', $this->pic3);
+        $stmt->bindParam(':postID', $this->postID);
+
+        echo $this->postID." ".$this->content." ".$this->tag1." ".$this->tag2." ".$this->tag3." ".$this->venue." ".$this->pic1." ".$this->pic2." ".$this->pic3." ".$this->likes." ";
 
         // execute the query
         if($stmt->execute()){
@@ -142,8 +144,9 @@ class Post
         $this->pic1 = $row["pic1"];
         $this->pic2 = $row["pic2"];
         $this->pic3 = $row["pic3"];
-        $this->likes = 0;
-        $this->userID = "my userID";
+        $this->likes = $row["likes"];
+        $this->userID = $row["userID"];
+        $this->postDate = $row["postDate"];
     }
 
     //  search in a post
