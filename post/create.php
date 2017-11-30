@@ -25,7 +25,6 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 }
 
 // set post property values
-//$post->postID = $_POST["id"];
 $post->content = $_POST["content"];
 $post->tag1 = $_POST["tag1"];
 $post->tag2 = $_POST["tag2"];
@@ -34,7 +33,6 @@ $post->venue = $_POST["venue"];
 $post->pic1 = $_POST["pic1"];
 $post->pic2 = $_POST["pic2"];
 $post->pic3 = $_POST["pic3"];
-//$post->postDate = $_POST["firstName"];
 $post->likes = 0;
 
 // create a post
