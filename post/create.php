@@ -24,10 +24,9 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
     exit();
 }
 
-// set user property values
+// set post property values
 //$post->postID = $_POST["id"];
 $post->content = $_POST["content"];
-//$post->userID = $_POST["firstName"];
 $post->tag1 = $_POST["tag1"];
 $post->tag2 = $_POST["tag2"];
 $post->tag3 = $_POST["tag3"];
