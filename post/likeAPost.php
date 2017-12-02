@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if($post->likeAPost()){
     echo '{';
     echo '"message": "Post was liked."';
+    echo '#likes = ' + $post->likes;
     echo '}';
 }
 // if unable to add like , tell the user

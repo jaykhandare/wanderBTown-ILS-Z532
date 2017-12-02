@@ -170,6 +170,25 @@ class Post
     //  like a post
     function likeAPost(){
 
-    }
+        $this->readOne();
+        $this->likes = $this->likes + 1;
 
+        // update query
+        $query = "UPDATE POSTS_TAGS SET  likes = :likes WHERE postID = :postID";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // bind new values
+        $stmt->bindParam(':postID', $this->postID);
+        $stmt->bindParam(':likes', $this->likes);
+
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
