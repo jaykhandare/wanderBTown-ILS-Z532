@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -30,6 +32,8 @@ $user->lastName = $_POST["lastName"];
 $user->username = $_POST["username"];
 $user->email = $_POST["email"];
 $user->password = $_POST["password"];
+
+$_SESSION['username'] = $user->username;
 
 /*
 // get posted data

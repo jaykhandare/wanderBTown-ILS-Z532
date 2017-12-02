@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -25,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 }
 
 // set user property values
-$user->username = $_POST["username"];
+$user->username = $_SESSION["username"];
 $user->interest1 = $_POST["interest1"];
 $user->interest2 = $_POST["interest2"];
 $user->interest3 = $_POST["interest3"];
