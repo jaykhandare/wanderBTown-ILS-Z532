@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="../reply/create.php" method="post">
+    <p>Create A reply:</p>
+    <p>content: <input type="text" name="content" /></p>
+    <p>userID: <input type="number" name="userID" /></p>
+    <p>postID: <input type="number" name="postID" /></p>
+    <input type="submit" name="submit" value="Submit" />
+</form>
+
+<form action="../reply/read.php" method="post">
+    <p>Read Replies:</p>
+    <input type="submit" name="submit" value="Submit" />
+</form>
+
+<form action="../reply/allRepliesForAPost.php" method="post">
+    <p>ReadAll Replies for a Post:</p>
+    <p>postID: <input type="text" name="postID" /></p>
+    <input type="submit" name="submit" value="Submit" />
+</form>
+
+<form action="../reply/delete.php" method="post">
+    <p>Delete A Reply:</p>
+    <p>replyID: <input type="text" name="replyID" /></p>
+    <input type="submit" name="submit" value="Submit" />
+</form>
+
+<form action="../reply/update.php" method="post">
+    <p>Update A Reply:</p>
+    <p>replyID: <input type="number" name="replyID" /></p>
+    <p>content: <input type="text" name="content" /></p>
+    <input type="submit" name="submit" value="Submit" />
+</form>
+
+</body>
+</html>

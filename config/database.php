@@ -51,6 +51,17 @@ class Database{
             echo "Failed to create posts table : " . $e->getMessage();
         }
 
+        // create table for replies
+        try {
+            $sql_replies_table = "CREATE TABLE IF NOT EXISTS POST_REPLIES (replyID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, postID INT(6) UNSIGNED, content VARCHAR(50) NOT NULL, userID INT(6) UNSIGNED, replyDate TIMESTAMP)";
+            $this->conn->exec($sql_replies_table);
+        }
+        catch (PDOException $e)
+        {
+            echo "Failed to create replies table : " . $e->getMessage();
+        }
+
+
         return $this->conn;
     }
 }
