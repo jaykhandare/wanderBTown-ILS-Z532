@@ -11,7 +11,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
 
-// instantiate user object
+// instantiate reply object
 include_once '../objects/reply.php';
 
 $database = new Database();

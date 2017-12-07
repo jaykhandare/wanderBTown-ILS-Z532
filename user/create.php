@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 // set user property values
 $user->firstName = $_POST["firstName"];
 $user->lastName = $_POST["lastName"];
-$user->username = $_POST["username"];
+$user->username = $_POST["userName"];
 $user->email = $_POST["email"];
 $user->password = $_POST["password"];
 

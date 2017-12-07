@@ -15,13 +15,13 @@ class User{
     public $interest2;
     public $interest3;
     public $joiningDate;
+    public $passwordHash;
 
 
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
     }
-
 
     // add a user
     function create(){
@@ -31,6 +31,7 @@ class User{
         $username = $this->username;
         $email = $this->email;
         $password = $this->password;
+        $password = hash('whirlpool',$password);
         try {
             $sql_add_user = "INSERT INTO USERS (id, firstName, lastName, username, email, password, joiningDate) VALUES (NULL , '$firstName' , '$lastName' , '$username' , '$email' , '$password' , CURRENT_TIMESTAMP )";
             $this->conn->exec($sql_add_user);
@@ -178,5 +179,29 @@ class User{
         // execute query
         $stmt->execute();
         return $stmt;
+    }
+
+    function login(){
+
+        // query to read single record
+        $query = "SELECT * FROM USERS WHERE username = ? LIMIT 0,1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->username);
+
+        // execute query
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->username = $row['username'];
+        $this->passwordHash = $row['password'];
+
+        return(hash_equals($this->passwordHash,hash('whirlpool',$this->password)));
     }
 }
