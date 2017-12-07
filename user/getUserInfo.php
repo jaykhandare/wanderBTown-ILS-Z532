@@ -26,18 +26,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["password"])) {
-        echo "password is required";
-    }
-    else {
-        $user->password = $_POST["password"];
-    }
-}
+if($user->getUserinfo()){
+// create array
+    $user_arr = array(
+        "id" =>  $user->id,
+        "firstName" => $user->firstName,
+        "lastName" => $user->lastName,
+        "email" => $user->email,
+        "joiningDate" => $user->joiningDate,
+    );
 
-if($user->login()){
-    echo "true";
+// make it json format
+    print_r(json_encode($user_arr));
 }
 else{
-    echo "false";
+    echo json_encode(
+        array("message" => "No records found.")
+    );
 }

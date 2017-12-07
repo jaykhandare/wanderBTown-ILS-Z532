@@ -204,4 +204,29 @@ class User{
 
         return(hash_equals($this->passwordHash,hash('whirlpool',$this->password)));
     }
+
+    function getUserInfo(){
+
+        // query to read single record
+        $query = "SELECT * FROM USERS WHERE username = ? LIMIT 0,1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->username);
+        // execute query
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->id = $row['id'];
+        $this->firstName = $row['firstName'];
+        $this->lastName = $row['lastName'];
+        $this->email = $row['email'];
+        $this->joiningDate = $row['joiningDate'];
+        return true;
+    }
 }

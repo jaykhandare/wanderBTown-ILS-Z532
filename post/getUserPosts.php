@@ -1,21 +1,32 @@
 <?php
-// required headers
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: access");
+header("Access-Control-Allow-Methods: GET");
+header("Access-Control-Allow-Credentials: true");
+header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/post.php';
 
-// instantiate database and post object
+
+// get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-// initialize object
+// prepare user object
 $post = new Post($db);
 
-// query posts
-$stmt = $post->read();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["userID"])) {
+        echo "userID is required";
+    }
+    else {
+        $post->userID = $_POST["userID"];
+    }
+}
+
+$stmt = $post->getUserPosts();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
@@ -28,7 +39,6 @@ if($num>0){
         $post_item=array(
             "postID" =>  $row['postID'],
             "content" => $row['content'],
-            "userID" => $row['userID'],
             "tag1" => $row['tag1'],
             "tag2" => $row['tag2'],
             "tag3" => $row['tag3'],
@@ -49,3 +59,4 @@ else{
         array("message" => "No records found.")
     );
 }
+

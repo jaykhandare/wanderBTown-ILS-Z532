@@ -131,8 +131,6 @@ class Post
         // get retrieved row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-//        $this->joiningDate = $row['joiningDate'];
-
         // set post property values
         $this->content = $row["content"];
         $this->tag1 = $row["tag1"];
@@ -190,5 +188,21 @@ class Post
         else{
             return false;
         }
+    }
+
+    function getUserPosts(){
+        // query to read single record
+        $query = "SELECT * FROM POSTS_TAGS WHERE userID = ?";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->userID);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
     }
 }
