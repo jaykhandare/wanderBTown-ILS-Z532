@@ -14,6 +14,9 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
     <title>Login and Registration Form</title>
     <link rel="stylesheet" type="text/css" href="../css/register.css"/>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script src="../js/create_user.js"></script>
+    <script src="../js/jquery.session.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
@@ -32,7 +35,7 @@
             <a class="hiddenanchor" id="tologin"></a>
             <div id="wrapper">
                 <div id="login" class="animate form">
-                    <form action="../user/create.php" autocomplete="on">
+                    <form id="login_check" autocomplete="on">
                         <h1>Log in</h1>
                         <p>
                             <label for="username" class="uname"> Your email or username </label>
@@ -49,7 +52,7 @@
                             <label for="loginkeeping">Keep me logged in</label>
                         </p>
                         <p class="login button">
-                            <a href="http://cookingfoodsworld.blogspot.in/" target="_blank"></a>
+                            <input type="submit" value="Login"/>
                         </p>
                         <p class="change_link">
                             Not a member yet ?
@@ -59,26 +62,26 @@
                 </div>
 
                 <div id="register" class="animate form">
-                    <form action="../user/create.php" autocomplete="on">
+                    <form id="register_user" action="homePage.html" autocomplete="on" method="post">
                         <h1> Sign up </h1>
                         <p>
                             <label for="firstNameRegister" class="uname">Your First Name</label>
-                            <input id="firstNameRegister" name="firstNameRegister" required="required" type="text"
+                            <input id="firstNameRegister" name="firstName" required="required" type="text"
                                    placeholder="Your First Name"/>
                         </p>
                         <p>
                             <label for="lastNameRegister" class="uname">Your Last Name</label>
-                            <input id="lastNameRegister" name="lastNameRegister" required="required" type="text"
+                            <input id="lastNameRegister" name="lastName" required="required" type="text"
                                    placeholder="Your Last Name"/>
                         </p>
                         <p>
-                            <label for="userNameRegister" class="uname">Your Last Name</label>
-                            <input id="userNameRegister" name="userNameRegister" required="required" type="text"
+                            <label for="userNameRegister" class="uname">Your User Name</label>
+                            <input id="userNameRegister" name="userName" required="required" type="text"
                                    placeholder="Your User Name"/>
                         </p>
                         <p>
                             <label for="emailsignup" class="youmail"> Your email</label>
-                            <input id="emailsignup" name="emailsignup" required="required" type="email"
+                            <input id="emailsignup" name="email" required="required" type="email"
                                    placeholder="mysupermail@mail.com"/>
                         </p>
                         <p>
@@ -88,7 +91,7 @@
                         </p>
                         <p>
                             <label for="passwordsignup_confirm" class="youpasswd">Please confirm your password </label>
-                            <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required"
+                            <input id="passwordsignup_confirm" name="password" required="required"
                                    type="password" placeholder="eg. X8df!90EO"/>
                         </p>
 
@@ -103,30 +106,30 @@
 
                 </div>
 
-<!--
-                <div id="interests" class="animate form">
-                    <form action="php/create.php" autocomplete="on">
-                        <p>
-                            <label for="Interests_1" class="uname">Interest One</label>
-                            <input id="Interests_1" name="Interest_1" required="required" type="text"
-                                   placeholder="eg. Food"/>
-                        </p>
+                <!--
+                                <div id="interests" class="animate form">
+                                    <form action="php/create.php" autocomplete="on">
+                                        <p>
+                                            <label for="Interests_1" class="uname">Interest One</label>
+                                            <input id="Interests_1" name="Interest_1" required="required" type="text"
+                                                   placeholder="eg. Food"/>
+                                        </p>
 
-                        <p>
-                            <label for="Interests_2" class="uname">Interest One</label>
-                            <input id="Interests_2" name="Interest_2" required="required" type="text"
-                                   placeholder="eg. Food"/>
-                        </p>
-                        <p>
-                            <label for="Interests_3" class="uname">Interest One</label>
-                            <input id="Interests_3" name="Interest_3" required="required" type="text"
-                                   placeholder="eg. Food"/>
-                        </p>
+                                        <p>
+                                            <label for="Interests_2" class="uname">Interest One</label>
+                                            <input id="Interests_2" name="Interest_2" required="required" type="text"
+                                                   placeholder="eg. Food"/>
+                                        </p>
+                                        <p>
+                                            <label for="Interests_3" class="uname">Interest One</label>
+                                            <input id="Interests_3" name="Interest_3" required="required" type="text"
+                                                   placeholder="eg. Food"/>
+                                        </p>
 
-                    </form>
+                                    </form>
 
-                </div>
--->
+                                </div>
+                -->
 
             </div>
         </div>
