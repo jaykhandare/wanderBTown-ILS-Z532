@@ -14,7 +14,7 @@
 <body>
 <header>
     <div class="container">
-        <a href="index.html"><img style="float: left" src="../images/logooo.png" class="logo" alt="" width="150" ></a>
+        <a href="index.html"><img style="float: left" src="../images/logooo.png" class="logo" alt="" width="150"></a>
         <h1 align="center">Wander<span name="btown">BTOWN</span></h1>
         <h4 align="center">Live . Learn . Explore</h4>
         <div id="Profile_name"></div>
@@ -45,8 +45,48 @@
 
 
 <section>
+    <?php
+    // required headers
+    /*                header("Access-Control-Allow-Origin: *");
+                    header("Content-Type: application/json; charset=UTF-8");
+                    header("Access-Control-Allow-Methods: POST");
+                    header("Access-Control-Max-Age: 3600");
+                    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");*/
+
+    // instantiate post object
+    include_once '../objects/post.php';
+
+    include_once '../config/database.php';
+    include_once '../objects/user.php';
+
+    // instantiate database and user object
+    $database = new Database();
+    $db = $database->getConnection();
+    ?>
     <div class="container">
         <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default friends">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Must Visit Places</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li><a href="eskenazi.html" class="thumbnail"><img src="../images/museum.jpg" alt=""></a>
+                            </li>
+                            <li><a href="imu.html" class="thumbnail"><img src="../images/imu-frontdoors.jpg" alt=""></a>
+                            </li>
+                            <li><a href="lakemonroe.html" class="thumbnail"><img src="../images/lake.jpg" alt=""></a>
+                            </li>
+                            <li><a href="motherbears.html" class="thumbnail"><img src="../images/motherbears.jpg"
+                                                                                  alt=""></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                        <a class="btn btn-primary" href="#">View All Places</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -57,11 +97,10 @@
                             <div class="form-group">
                                 <textarea class="form-control" placeholder="Write on the wall"></textarea>
                             </div>
-                            <div class="col">
+                            <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Place Name">
-                            </div>
-                            <div class="col">
                                 <input type="text" class="form-control" placeholder="Address">
+
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
                             <div class="pull-right">
@@ -75,19 +114,50 @@
                         </form>
                     </div>
                 </div>
+
+
+                /* // initialize object
+                $user = new User($db);
+
+                // query users
+                $stmt = $user->read();
+                $num = $stmt->rowCount();
+                $users_arr["records"] = array();
+
+                // check if more than 0 record found
+                if ($num > 0) {
+                // users array
+                // retrieve our table contents
+                while ($num != 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $user_item = array($row['id'], $row['firstName'], $row['lastName'], $row['email'],
+                $row['username'], $row['joiningDate']);
+                array_push($users_arr["records"], $user_item);
+                $num = $num - 1;
+                }
+                } else {
+                array_push($users_arr["records"], json_encode(
+                array("message" => "No records found.")
+                ));
+                }
+                */?>
+                <? foreach ($users_arr["records"] as &$value){ ?>
+
                 <div class="panel panel-default post">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-2">
-                                <a href="profile.html" class="post-avatar thumbnail"><img src="../images/back.jpg" alt="">
-                                    <div class="text-center">Hitesh</div>
+                                <a href="profile.html" class="post-avatar thumbnail"><img src="../images/back.jpg"
+                                                                                          alt="">
+
+                                    <div class="text-center"><?= $value[0]; ?></div>
                                 </a>
-                                <div class="likes text-center">7 Likes</div>
+                                <div class="likes text-center"> <? $value[1]; ?></div>
                             </div>
                             <div class="col-sm-10">
                                 <div class="bubble">
                                     <div class="pointer">
-                                        <p>Just Visited Monroe Lake!!!...Everyone should check it out...Evenings are very pleasant</p>
+                                        <p><?= $value[2]; ?></p>
                                     </div>
                                     <div class="pointer-border"></div>
                                 </div>
@@ -105,16 +175,18 @@
 
                                 <div class="comments">
                                     <div class="comment">
-                                        <a href="#" class="comment-avatar pull-left"><img src="../images/cutmypic.png" alt=""></a>
+                                        <a href="#" class="comment-avatar pull-left"><img src="../images/cutmypic.png"
+                                                                                          alt=""></a>
                                         <div class="comment-text">
-                                            <p>Yeah!!....It is one of the attractions in our town!!</p>
+                                            <p><?= $value[3]; ?></p>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="comment">
-                                        <a href="#" class="comment-avatar pull-left"><img src="../images/jay_round.png" alt=""></a>
+                                        <a href="#" class="comment-avatar pull-left"><img src="../images/jay_round.png"
+                                                                                          alt=""></a>
                                         <div class="comment-text">
-                                            <p>Not as pleasant as My onw Room though &#x2602;</p>
+                                            <p><?= $value[3]; ?> &#x2602;</p>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -122,24 +194,10 @@
                             </div>
                         </div>
                     </div>
+                    <? } ?>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="panel panel-default friends">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Must Visit Places</h3>
-                    </div>
-                    <div class="panel-body">
-                        <ul>
-                            <li><a href="eskenazi.html" class="thumbnail"><img src="../images/museum.jpg" alt=""></a></li>
-                            <li><a href="imu.html" class="thumbnail"><img src="../images/imu-frontdoors.jpg" alt=""></a></li>
-                            <li><a href="lakemonroe.html" class="thumbnail"><img src="../images/lake.jpg" alt=""></a></li>
-                            <li><a href="motherbears.html" class="thumbnail"><img src="../images/motherbears.jpg" alt=""></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                        <a class="btn btn-primary" href="#">View All Places</a>
-                    </div>
-                </div>
+
+
             </div>
         </div>
 

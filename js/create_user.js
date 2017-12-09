@@ -22,7 +22,7 @@ $(document).ready(function(){
             },
             success: function(msg){
                 $.session.set("userName", userName_value);
-                window.location.replace("homePage.html")
+                window.location.replace("homePage.php")
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 alert("some error");
@@ -40,7 +40,7 @@ $(document).ready(function(){
 
         posting.done(function (data) {
             if (test.includes("User was added")) {
-                window.location.href = "homePage.html"
+                window.location.href = "homePage.php"
             }
 
         });*/
@@ -61,11 +61,11 @@ $(document).ready(function(){
             },
             success: function(msg){
                 $.session.set("userName", userName_value);
-                window.location.replace("homePage.html")
+                window.location.replace("homePage.php")
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 $.session.set("userName", $userName);
-                window.location.replace("homePage.html")
+                window.location.replace("homePage.php")
             }
         });
 
@@ -94,7 +94,7 @@ $(document).ready(function(){
             var test = data.toString();
             alert(test);
             if (test.includes("User was added")) {
-                window.location.href = "homePage.html"
+                window.location.href = "homePage.php"
             }
 /!*
             $( "#contactResponse" ).html(data);
@@ -134,7 +134,7 @@ $(document).ready(function(){
              var test = data.toString();
              alert(test)
              if (test.includes("User was added")) {
-                 window.location.href = "homePage.html"
+                 window.location.href = "homePage.php"
              }
              /!*
                      /!* Put the results in a div *!/

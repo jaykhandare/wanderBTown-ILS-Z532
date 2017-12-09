@@ -1,8 +1,13 @@
+<html>
+<body>
+<h1>Test</h1>
 <?php
+
 // required headers
+/*
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-
+*/
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/user.php';
@@ -19,14 +24,14 @@ $stmt = $user->read();
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
-if($num>0){
+if ($num > 0) {
     // users array
-    $users_arr["records"]=array();
+    $users_arr["records"] = array();
     // retrieve our table contents
-    while ($num!=0){
+    while ($num != 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $user_item=array(
-            "id" =>  $row['id'],
+        $user_item = array(
+            "id" => $row['id'],
             "firstName" => $row['firstName'],
             "lastName" => $row['lastName'],
             "email" => $row['email'],
@@ -35,11 +40,14 @@ if($num>0){
         );
         array_push($users_arr["records"], $user_item);
         $num = $num - 1;
-    }
-    echo json_encode($users_arr["records"]);
-}
-else{
+    }?>
+   <h1><? echo json_encode($users_arr["records"]);?></h1>
+<?} else {
     echo json_encode(
         array("message" => "No records found.")
     );
 }
+?>
+</body>
+</html>
+
