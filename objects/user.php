@@ -123,6 +123,8 @@ class User{
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
+        $this->password = hash('whirlpool',$this->password);
+
         // bind new values
         $stmt->bindParam(':firstName', $this->firstName);
         $stmt->bindParam(':lastName', $this->lastName);
