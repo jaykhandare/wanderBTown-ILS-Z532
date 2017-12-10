@@ -1,8 +1,10 @@
 <?php
+include_once '/home/jkhandar/PhpstormProjects/wanderBTown_test/wanderBTown-ILS-Z532/config/database.php';
+
 class Post
 {
     // database connection
-    private $conn;
+    public $conn;
 
     // object properties
     public $postID;
@@ -20,9 +22,10 @@ class Post
 
 
     // constructor with $db as database connection
-    public function __construct($db)
+    public function __construct()
     {
-        $this->conn = $db;
+        $db = new Database();
+        $this->conn = $db->getConnection();
     }
 
     //  create a post
@@ -44,6 +47,7 @@ class Post
             $this->conn->exec($sql_add_post);
             return true;
         } catch (PDOException $e) {
+            echo $e;
             return false;
         }
 

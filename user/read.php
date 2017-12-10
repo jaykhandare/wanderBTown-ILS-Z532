@@ -1,6 +1,3 @@
-<html>
-<body>
-<h1>Test</h1>
 <?php
 
 // required headers
@@ -23,31 +20,22 @@ $user = new User($db);
 $stmt = $user->read();
 $num = $stmt->rowCount();
 
+// users array
+$users_arr["records"] = array();
+
+$users_arr["records"] = array();
 // check if more than 0 record found
 if ($num > 0) {
-    // users array
-    $users_arr["records"] = array();
     // retrieve our table contents
     while ($num != 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $user_item = array(
-            "id" => $row['id'],
-            "firstName" => $row['firstName'],
-            "lastName" => $row['lastName'],
-            "email" => $row['email'],
-            "username" => $row['username'],
-            "joiningDate" => $row['joiningDate']
-        );
+        $user_item = array($row['id'], $row['firstName'], $row['lastName'], $row['email'],
+            $row['username'], $row['joiningDate']);
         array_push($users_arr["records"], $user_item);
         $num = $num - 1;
-    }?>
-   <h1><? echo json_encode($users_arr["records"]);?></h1>
-<?} else {
-    echo json_encode(
+    }
+} else {
+    array_push($users_arr["records"], json_encode(
         array("message" => "No records found.")
-    );
+    ));
 }
-?>
-</body>
-</html>
-

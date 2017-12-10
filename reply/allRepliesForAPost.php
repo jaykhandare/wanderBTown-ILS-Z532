@@ -9,6 +9,7 @@ header('Content-Type: application/json');
 include_once '../config/database.php';
 include_once '../objects/reply.php';
 
+
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
@@ -44,10 +45,10 @@ if($num>0){
         array_push($replies_arr["records"], $reply_item);
         $num = $num - 1;
     }
-    echo json_encode($replies_arr["records"]);
+    return json_encode($replies_arr["records"]);
 }
 else{
-    echo json_encode(
+    return json_encode(
         array("message" => "No records found.")
     );
 }

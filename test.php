@@ -1,3 +1,6 @@
+<html>
+<head></head>
+<body>
 <?php
 /**
  * Created by PhpStorm.
@@ -5,17 +8,19 @@
  * Date: 11/21/17
  * Time: 7:12 PM
  */
+define('ROOT_PATH', __DIR__);
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
+include_once './dashboard/dashboardFunctions.php';
 
-echo "HIT";
+?>
 
-echo 'Hello ' . htmlspecialchars($_POST["name"]) . '!';
+<p>
+   <?/* $array1 =  getUserDash("d");*/?>
 
-//          http://localhost/wanderBTown-ILS-Z532/test.php
+    <? $testvar = getUserPosts();
+        echo $testvar[1][1];
+   ?>
+</p>
 
-//          Content-Type: application/json
+</body>
+</html>

@@ -46,23 +46,46 @@
 
 <section>
     <?php
-    // required headers
-    /*                header("Access-Control-Allow-Origin: *");
-                    header("Content-Type: application/json; charset=UTF-8");
-                    header("Access-Control-Allow-Methods: POST");
-                    header("Access-Control-Max-Age: 3600");
-                    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");*/
 
-    // instantiate post object
-    include_once '../objects/post.php';
+/*    $post = new Post($db);
+/*    if ($_SERVER["REQUEST_METHOD"] != "POST") {
+        echo '{';
+        echo '"message": "POST method not used"';
+        echo '}';
+        exit();
+    }*/
 
-    include_once '../config/database.php';
-    include_once '../objects/user.php';
+    // set post property values
+/*    if (isset($_POST["content"]) && isset($_POST["tag1"])) {
+        $post->content = $_POST["content"];
+        $post->tag1 = $_POST["tag1"];
+        $post->tag2 = $_POST["tag2"];
+        $post->tag3 = $_POST["tag3"];
+        $post->venue = $_POST["venue"];
+        $post->pic1 = $_POST["pic1"];
+        $post->pic2 = $_POST["pic2"];
+        $post->pic3 = $_POST["pic3"];
+        $post->likes = 0;
+        $post->userID = 123;
 
-    // instantiate database and user object
-    $database = new Database();
-    $db = $database->getConnection();
+echo $post->content." ".$post->tag1." ".$post->tag2." ".$post->tag3." ".$post->venue." ".$post->pic1." ".$post->pic2." ".$post->pic3." ".$post->likes." ".$post->userID;*/
+
+
+// create a post
+     /*   if ($post->create()) {
+            echo '{';
+            echo '"message": "Post was made."';
+            echo '}';
+        } // if unable to create a post , tell the user
+        else {
+            echo '{';
+            echo '"message": "Unable to create the post."';
+            echo '}';
+        }
+
+    }*/
     ?>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -93,14 +116,19 @@
                         <h4 class="panel-title">Wall</h4>
                     </div>
                     <div class="panel-body">
-                        <form>
+                        <form method="post" action="../post/create.php">
                             <div class="form-group">
                                 <textarea class="form-control" placeholder="Write on the wall"></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Place Name">
-                                <input type="text" class="form-control" placeholder="Address">
-
+                                <input type="text" class="form-control" name="content" placeholder="Place Name">
+                                <input type="text" class="form-control" name="pic1" placeholder="Address">
+                                <input type="text" class="form-control" name="pic2" placeholder="random">
+                                <input type="text" class="form-control" name="pic3" placeholder="random">
+                                <input type="text" class="form-control" name="tag1" placeholder="TagOne">
+                                <input type="text" class="form-control" name="tag2" placeholder="TagTwo">
+                                <input type="text" class="form-control" name="tag3" placeholder="TagThree">
+                                <input type="hidden" name="userID" value="<?php echo $_SESSION["username"]; ?>">
                             </div>
                             <button type="submit" class="btn btn-default">Submit</button>
                             <div class="pull-right">
@@ -114,34 +142,7 @@
                         </form>
                     </div>
                 </div>
-
-
-                /* // initialize object
-                $user = new User($db);
-
-                // query users
-                $stmt = $user->read();
-                $num = $stmt->rowCount();
-                $users_arr["records"] = array();
-
-                // check if more than 0 record found
-                if ($num > 0) {
-                // users array
-                // retrieve our table contents
-                while ($num != 0) {
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $user_item = array($row['id'], $row['firstName'], $row['lastName'], $row['email'],
-                $row['username'], $row['joiningDate']);
-                array_push($users_arr["records"], $user_item);
-                $num = $num - 1;
-                }
-                } else {
-                array_push($users_arr["records"], json_encode(
-                array("message" => "No records found.")
-                ));
-                }
-                */?>
-                <? foreach ($users_arr["records"] as &$value){ ?>
+                <? foreach ($posts_arr["records"] as &$value){ ?>
 
                 <div class="panel panel-default post">
                     <div class="panel-body">

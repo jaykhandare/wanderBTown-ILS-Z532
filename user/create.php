@@ -52,9 +52,11 @@ $user->interest3 = $data->interest3;
 
 // create the user
 if($user->create()){
-    echo '{';
+    header("Location: ../html/homePage.php");
+    exit();
+/*    echo '{';
     echo '"message": "User was added."';
-    echo '}';
+    echo '}';*/
 }
 // if unable to create the user, tell the user
 else{
