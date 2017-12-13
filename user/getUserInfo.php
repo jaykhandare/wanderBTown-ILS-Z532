@@ -11,7 +11,7 @@ include_once '../objects/user.php';
 
 
 // get database connection
-$database = new Database();
+$database = new DatabaseTest();
 $db = $database->getConnection();
 
 // prepare user object
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "userName is required";
     }
     else {
-        $user->username = $_POST["userName"];
+        $user->userName = $_POST["userName"];
     }
 }
 
@@ -36,11 +36,7 @@ if($user->getUserinfo()){
         "joiningDate" => $user->joiningDate,
     );
 
-// make it json format
-    print_r(json_encode($user_arr));
 }
 else{
-    echo json_encode(
-        array("message" => "No records found.")
-    );
+    $user_arr = 0;
 }

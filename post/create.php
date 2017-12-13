@@ -6,16 +6,15 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// get database connection
 
 // instantiate post object
-/*include_once '/home/jkhandar/PhpstormProjects/wanderBTown_test/wanderBTown-ILS-Z532/config/database.php';*/
-include_once '/home/jkhandar/PhpstormProjects/wanderBTown_test/wanderBTown-ILS-Z532/objects/post.php';
+include_once '../config/database.php';
+include_once '../objects/post.php';
 
-/*$database = new Database();
-$db = $database->getConnection();*/
+$database = new Database();
+$db = $database->getConnection();
 
-$post = new Post();
+$post = new Post($db);
 
 if($_SERVER["REQUEST_METHOD"]!="POST") {
     echo '{';
@@ -25,22 +24,17 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 }
 
 // set post property values
+$post->venueName = $_POST["venueName"];
 $post->content = $_POST["content"];
-$post->tag1 = $_POST["tag1"];
-$post->tag2 = $_POST["tag2"];
-$post->tag3 = $_POST["tag3"];
-$post->venue = $_POST["venue"];
-$post->pic1 = $_POST["pic1"];
-$post->pic2 = $_POST["pic2"];
-$post->pic3 = $_POST["pic3"];
+$post->pic = $_POST["pic"];
 $post->likes = 0;
-$post->userID = 123;
+$post->userID = $_POST["userID"];
 
 
 
 // create a post
 if($post->create()){
-    header("Location: ../html/homePage.php");
+    header("Location: ../html/homepage.php");
     exit();
 
 /*    echo '{';

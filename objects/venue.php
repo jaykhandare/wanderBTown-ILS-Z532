@@ -1,15 +1,13 @@
 <?php
-class Reply
+class Venue
 {
     // database connection
     private $conn;
 
     // object properties
-    public $replyID;
-    public $postID;
-    public $userID;
-    public $content;
-    public $replyDate;
+    public $venueName;
+    public $details;
+    public $contact;
 
 
     // constructor with $db as database connection
@@ -20,14 +18,12 @@ class Reply
 
     //  create a reply
     function create(){
-
-        $content = $this->content;
-        $userID = $this->userID;
-        $postID = $this->postID;
-
+        $venueName = $this->venueName;
+        $details = $this->details;
+        $contact = $this->contact;
 
         try {
-            $sql_add_reply = "INSERT INTO REPLIES (replyID,postID,userID,content,replyDate) VALUES (NULL,'$postID','$userID','$content',CURRENT_TIMESTAMP )";
+            $sql_add_reply = "INSERT INTO VENUES (venueName,details,contact) VALUES ('$venueName','$details','$contact')";
             $this->conn->exec($sql_add_reply);
             return true;
         } catch (PDOException $e) {
@@ -38,13 +34,13 @@ class Reply
     //  delete a reply
     function delete(){
         // delete query
-        $query = "DELETE FROM REPLIES WHERE replyID = ?";
+        $query = "DELETE FROM VENUES WHERE venueName = ?";
 
         // prepare query
         $stmt = $this->conn->prepare($query);
 
         // bind id of record to delete
-        $stmt->bindParam(1, $this->replyID);
+        $stmt->bindParam(1, $this->venueName);
 
         // execute query
         if($stmt->execute()){
@@ -59,15 +55,16 @@ class Reply
     //  update a reply
     function update(){
         // update query
-        $query = "UPDATE REPLIES SET content = :content 
-                  WHERE replyID = :replyID";
+        $query = "UPDATE VENUES SET details = :details, contact = :contact 
+                  WHERE venueName = :venueName";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
         // bind new values
-        $stmt->bindParam(':content', $this->content);
-        $stmt->bindParam(':replyID', $this->replyID);
+        $stmt->bindParam(':details', $this->details);
+        $stmt->bindParam(':contact', $this->contact);
+        $stmt->bindParam(':venueName', $this->venueName);
 
         // execute the query
         if($stmt->execute()){
@@ -81,7 +78,7 @@ class Reply
     //  read replies
     function read(){
         // select all query
-        $query = "SELECT * FROM REPLIES";
+        $query = "SELECT * FROM VENUES";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -92,17 +89,19 @@ class Reply
         return $stmt;
 
     }
+
+
     //  read all replies to a post
-    function allRepliesForAPost(){
+    function allPostsForAVenue(){
 
         // query to read single record
-        $query = "SELECT * FROM REPLIES WHERE postID = ?";
+        $query = "SELECT * FROM POSTS WHERE venueName = ?";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
         // bind id of user to be updated
-        $stmt->bindParam(1, $this->postID);
+        $stmt->bindParam(1, $this->venueName);
 
         // execute query
         $stmt->execute();

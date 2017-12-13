@@ -26,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $stmt = $user->search($keywords);
 $num = $stmt->rowCount();
 
+// users array
+$users_arr=array();
 // check if more than 0 record found
 if($num>0){
-    // users array
-    $users_arr["records"]=array();
     // retrieve our table contents
     while ($num!=0){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -41,13 +41,10 @@ if($num>0){
             "username" => $row['username'],
             "joiningDate" => $row['joiningDate']
         );
-        array_push($users_arr["records"], $user_item);
+        array_push($users_arr, $user_item);
         $num = $num - 1;
     }
-    echo json_encode($users_arr["records"]);
 }
 else{
-    echo json_encode(
-        array("message" => "No records found.")
-    );
+    array_push($users_arr, 0);
 }

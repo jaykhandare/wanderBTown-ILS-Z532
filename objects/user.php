@@ -5,16 +5,15 @@ class User{
     public $conn;
 
     // object properties
-    public $id;
+    public $userID;
     public $firstName;
     public $lastName;
-    public $username;
+    public $userName;
     public $email;
     public $password;
-    public $interest1;
-    public $interest2;
-    public $interest3;
     public $joiningDate;
+    public $pic;
+
     public $passwordHash;
 
 
@@ -28,12 +27,15 @@ class User{
 
         $firstName = $this->firstName;
         $lastName = $this->lastName;
-        $username = $this->username;
+        $userName = $this->userName;
         $email = $this->email;
         $password = $this->password;
+        $pic = "false";
+
         $password = hash('whirlpool',$password);
+
         try {
-            $sql_add_user = "INSERT INTO USERS (id, firstName, lastName, username, email, password, joiningDate) VALUES (NULL , '$firstName' , '$lastName' , '$username' , '$email' , '$password' , CURRENT_TIMESTAMP )";
+            $sql_add_user = "INSERT INTO USERS (userID, firstName, lastName, userName, email, password, pic, joiningDate) VALUES (NULL , '$firstName' , '$lastName' , '$userName' , '$email' , '$password' , '$pic ', CURRENT_TIMESTAMP )";
             $this->conn->exec($sql_add_user);
 
             return true;
@@ -64,7 +66,7 @@ class User{
         $userID = $row["id"];
 
         try {
-            $sql_add_user_interests = "INSERT INTO USER_INTERESTS (id, interest1, interest2, interest3) VALUES ('$userID' , '$interest1' , '$interest2' , '$interest3')";
+            $sql_add_user_interests = "INSERT INTO USER_INTERESTS (userID, interest1, interest2, interest3) VALUES ('$userID' , '$interest1' , '$interest2' , '$interest3')";
             $this->conn->exec($sql_add_user_interests);
 
             return true;
@@ -91,13 +93,13 @@ class User{
     function readOne(){
 
         // query to read single record
-        $query = "SELECT * FROM USERS WHERE id = ? LIMIT 0,1";
+        $query = "SELECT * FROM USERS WHERE userID = :userID LIMIT 0,1";
 
         // prepare query statement
         $stmt = $this->conn->prepare( $query );
 
         // bind id of user to be updated
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(':userID',$this->userID);
 
         // execute query
         $stmt->execute();
@@ -108,7 +110,7 @@ class User{
         // set values to object properties
         $this->firstName = $row['firstName'];
         $this->lastName = $row['lastName'];
-        $this->username = $row['username'];
+        $this->userName = $row['userName'];
         $this->email = $row['email'];
         $this->joiningDate = $row['joiningDate'];
     }
@@ -118,7 +120,7 @@ class User{
 
         // update query
         $query = "UPDATE USERS SET firstName = :firstName, lastName = :lastName, email = :email, password = :password
-                  WHERE username = :username";
+                  WHERE userName = :userName";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -130,7 +132,7 @@ class User{
         $stmt->bindParam(':lastName', $this->lastName);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
-        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':userName', $this->userName);
 
         // execute the query
         if($stmt->execute()){
@@ -145,13 +147,13 @@ class User{
     function delete(){
 
         // delete query
-        $query = "DELETE FROM USERS WHERE username = ?";
+        $query = "DELETE FROM USERS WHERE userName = ?";
 
         // prepare query
         $stmt = $this->conn->prepare($query);
 
         // bind id of record to delete
-        $stmt->bindParam(1, $this->username);
+        $stmt->bindParam(1, $this->userName);
 
         // execute query
         if($stmt->execute()){
@@ -186,13 +188,13 @@ class User{
     function login(){
 
         // query to read single record
-        $query = "SELECT * FROM USERS WHERE username = ? LIMIT 0,1";
+        $query = "SELECT * FROM USERS WHERE userName = ? LIMIT 0,1";
 
         // prepare query statement
         $stmt = $this->conn->prepare( $query );
 
         // bind id of user to be updated
-        $stmt->bindParam(1, $this->username);
+        $stmt->bindParam(1, $this->userName);
 
         // execute query
         $stmt->execute();
@@ -201,22 +203,28 @@ class User{
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // set values to object properties
-        $this->username = $row['username'];
+        $this->userName = $row['userName'];
         $this->passwordHash = $row['password'];
+        $this->userID = $row['userID'];
 
-        return(hash_equals($this->passwordHash,hash('whirlpool',$this->password)));
+        if(isset($this->userName)){
+            return(hash_equals($this->passwordHash,hash('whirlpool',$this->password)));
+        }
+        else{
+            return false;
+        }
     }
 
     function getUserInfo(){
 
         // query to read single record
-        $query = "SELECT * FROM USERS WHERE username = ? LIMIT 0,1";
+        $query = "SELECT * FROM USERS WHERE userName = ? LIMIT 0,1";
 
         // prepare query statement
         $stmt = $this->conn->prepare( $query );
 
         // bind id of user to be updated
-        $stmt->bindParam(1, $this->username);
+        $stmt->bindParam(1, $this->userName);
         // execute query
         $stmt->execute();
 
@@ -224,11 +232,53 @@ class User{
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // set values to object properties
-        $this->id = $row['id'];
+        $this->userID = $row['userID'];
         $this->firstName = $row['firstName'];
         $this->lastName = $row['lastName'];
         $this->email = $row['email'];
         $this->joiningDate = $row['joiningDate'];
+        $this->pic = $row['pic'];
         return true;
     }
+
+    function picSet(){
+
+        // update query
+        $query = "UPDATE USERS SET pic = :pic
+                  WHERE userName = :userName";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+
+        // bind new values
+        $stmt->bindParam(':userName', $this->userName);
+        $stmt->bindParam(':pic', $this->pic);
+
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+        // query to read single record
+        $query = "SELECT * FROM USERS WHERE userName = ? LIMIT 0,1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->userName);
+        // execute query
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->pic = "true";
+        return true;
+    }
+
 }

@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-header("Access-Control-Allow-Origin: *");
+/*header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
+header('Content-Type: application/json');*/
 
 // include database and object files
 include_once '../config/database.php';
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "userName is required";
     }
     else {
-        $user->username = $_POST["userName"];
+        $user->userName = $_POST["userName"];
     }
 }
 
@@ -38,9 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if($user->login()){
-    $_SESSION['username'] = $user->username;
-    echo "true";
+    $_SESSION['userName'] = $user->userName;
+    $_SESSION['userID'] = $user->userID;
+    $_SESSION['picName'] = $_SESSION['userName'].".jpg";
+
+    header("Location: ../html/homepage.php");
+    exit();
 }
 else{
-    echo "false";
+    /*Error mechanism*/
+    $Message = urlencode("Incorrect Credentials ");
+    header("Location: ../html/register.php?Message=".$Message);
+    exit();
 }

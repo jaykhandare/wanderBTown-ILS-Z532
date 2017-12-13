@@ -1,9 +1,9 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+/*header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
+header('Content-Type: application/json');*/
 
 // include database and object files
 include_once '../config/database.php';
@@ -16,26 +16,20 @@ $db = $database->getConnection();
 // prepare user object
 $user = new User($db);
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["id"])) {
-        echo "id is required";
+    if (empty($_POST["userID"])) {
+        echo "userID is required";
     }
     else {
-        $user->id = $_POST["id"];
+        $user->userID = $_POST["userID"];
     }
 }
+
+$user->userID = 1;
 
 // read the details of user to be edited
 $user->readOne();
 
 // create array
-$user_arr = array(
-    "id" =>  $user->id,
-    "firstName" => $user->firstName,
-    "lastName" => $user->lastName,
-    "email" => $user->email,
-    "username" => $user->username,
-    "joiningDate" => $user->joiningDate,
-);
-// make it json format
-print_r(json_encode($user_arr));
+$user_item = array($user->userID,$user->firstName,$user->lastName,$user->username,$user->email,$user->joiningDate);

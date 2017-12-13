@@ -27,10 +27,7 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 }
 
 // set user property values
-$user->username = $_SESSION["username"];
-$user->interest1 = $_POST["interest1"];
-$user->interest2 = $_POST["interest2"];
-$user->interest3 = $_POST["interest3"];
+$user->userName = $_SESSION["userName"];
 
 // add the user interest
 if($user->add_interests()){
