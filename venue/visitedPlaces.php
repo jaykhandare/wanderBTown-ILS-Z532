@@ -4,7 +4,7 @@
 include_once '../config/database.php';
 include_once '../objects/post.php';
 // instantiate database and reply object
-$database = new DatabaseTest();
+$database = new Database();
 $db = $database->getConnection();
 
 // initialize object

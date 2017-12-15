@@ -26,16 +26,14 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 // set post property values
 $post->venueName = $_POST["venueName"];
 $post->content = $_POST["content"];
-$post->pic = $_POST["pic"];
+//$post->pic = $_POST["pic"];
 $post->likes = 0;
 $post->userID = $_POST["userID"];
-
 
 
 // create a post
 if($post->create()){
     header("Location: ../html/homepage.php");
-    exit();
 
 /*    echo '{';
     echo '"message": "Post was made."';

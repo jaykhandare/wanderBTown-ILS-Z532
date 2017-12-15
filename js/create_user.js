@@ -39,7 +39,7 @@ $(document).ready(function(){
         }));
 
         posting.done(function (data) {
-            if (test.includes("User was added")) {
+            if (test_original.includes("User was added")) {
                 window.location.href = "homePage.php"
             }
 
@@ -91,9 +91,9 @@ $(document).ready(function(){
         });
 
         posting.done(function (data) {
-            var test = data.toString();
-            alert(test);
-            if (test.includes("User was added")) {
+            var test_original = data.toString();
+            alert(test_original);
+            if (test_original.includes("User was added")) {
                 window.location.href = "homePage.php"
             }
 /!*
@@ -106,7 +106,7 @@ $(document).ready(function(){
         });
     }));*/
 /*
- function test() {
+ function test_original() {
      /!*$("#register_user").submit(function (event) {
          /!* stop form from submitting normally *!/
          /!*event.preventDefault();*!/
@@ -131,9 +131,9 @@ $(document).ready(function(){
          });
 
          posting.done(function (data) {
-             var test = data.toString();
-             alert(test)
-             if (test.includes("User was added")) {
+             var test_original = data.toString();
+             alert(test_original)
+             if (test_original.includes("User was added")) {
                  window.location.href = "homePage.php"
              }
              /!*

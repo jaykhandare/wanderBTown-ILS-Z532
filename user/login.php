@@ -11,7 +11,6 @@ header('Content-Type: application/json');*/
 include_once '../config/database.php';
 include_once '../objects/user.php';
 
-
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
@@ -41,8 +40,8 @@ if($user->login()){
     $_SESSION['userName'] = $user->userName;
     $_SESSION['userID'] = $user->userID;
     $_SESSION['picName'] = $_SESSION['userName'].".jpg";
-
-    header("Location: ../html/homepage.php");
+    header("Location:../html/homepage.php");
+//    header("Location: https://cas.iu.edu/cas/login?cassvc=IU&casurl=http://ella.ils.indiana.edu/~jkhandar/php/html/homepage.php");
     exit();
 }
 else{

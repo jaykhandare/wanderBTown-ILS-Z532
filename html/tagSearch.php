@@ -42,9 +42,9 @@ session_start();
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="homepage.php">Home</a></li>
+                <li><a href="homepage.php">Home</a></li>
                 <li><a href="profile.php">Profile</a></li>
-                <li><a href="tagSearch.php">Tag Search</a></li>
+                <li class="active"><a href="tagSearch.php">Tag Search</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>

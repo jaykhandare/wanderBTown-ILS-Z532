@@ -223,4 +223,20 @@ class Post
         return $stmt;
     }
 
+
+    function venuePosts($venueName){
+        $query = "SELECT USERS.userName,POSTS.postID,POSTS.content,POSTS.likes,POSTS.tag1,POSTS.tag2,POSTS.tag3,POSTS.postingDate FROM USERS, POSTS ,VENUES  
+                  WHERE VENUES.venueName = ? AND POSTS.venueName = VENUES.venueName 
+                                             AND POSTS.userID = USERS.userID";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // bind id of user to be updated
+        $stmt->bindParam(1, $venueName);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
 }

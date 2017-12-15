@@ -9,7 +9,7 @@
  * Time: 7:12 PM
  */
 
-echo "test";
+phpinfo();
 ?>
 </body>
 </html>

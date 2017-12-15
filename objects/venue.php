@@ -90,6 +90,29 @@ class Venue
 
     }
 
+    function readOne(){
+
+        // query to read single record
+        $query = "SELECT * FROM VENUES WHERE venueName = :venueName LIMIT 0,1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+
+        // bind id of user to be updated
+        $stmt->bindParam(':venueName',$this->venueName);
+
+        // execute query
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->venueName = $row['venueName'];
+        $this->details = $row['details'];
+        $this->contact = $row['contact'];
+    }
+
 
     //  read all replies to a post
     function allPostsForAVenue(){

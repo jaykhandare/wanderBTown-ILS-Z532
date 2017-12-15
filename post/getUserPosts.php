@@ -1,10 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
-
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/post.php';
@@ -16,15 +10,6 @@ $db = $database->getConnection();
 
 // prepare user object
 $post = new Post($db);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["userID"])) {
-        echo "userID is required";
-    }
-    else {
-        $post->userID = $_POST["userID"];
-    }
-}
 
 $stmt = $post->getUserPosts();
 $num = $stmt->rowCount();

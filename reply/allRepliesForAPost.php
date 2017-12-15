@@ -1,9 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
@@ -45,9 +40,9 @@ if($num>0){
         array_push($replies_arr, $reply_item);
         $num = $num - 1;
     }
-    return $replies_arr;
 }
 else{
     array_push($replies_arr, 0);
-    return $replies_arr;
 }
+
+return $replies_arr;

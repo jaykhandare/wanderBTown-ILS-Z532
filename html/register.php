@@ -60,7 +60,8 @@
                             if (isset($_GET['Message'])) {
                                 echo $_GET['Message'];
                             }
-                            ?></div>
+                            ?>
+                        </div>
                     </form>
                     <p class="change_link">
                         Not a member yet ?

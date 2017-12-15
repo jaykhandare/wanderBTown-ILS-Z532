@@ -14,6 +14,7 @@ $venue = new Venue($db);
 // query replies
 $stmt = $venue->read();
 $num = $stmt->rowCount();
+$size = $num;
 
 // check if more than 0 record found
 $venues_arr=array();

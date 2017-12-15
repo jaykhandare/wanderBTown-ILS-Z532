@@ -92,11 +92,13 @@ class Reply
         return $stmt;
 
     }
+
     //  read all replies to a post
     function allRepliesForAPost(){
 
         // query to read single record
-        $query = "SELECT * FROM REPLIES WHERE postID = ?";
+        $query = "SELECT USERS.userName,REPLIES.content,REPLIES.replyDate FROM USERS, REPLIES 
+                  WHERE postID = ? AND USERS.userID = REPLIES.userID";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);

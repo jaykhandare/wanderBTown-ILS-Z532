@@ -31,8 +31,8 @@ class User{
         $email = $this->email;
         $password = $this->password;
         $pic = "false";
-
         $password = hash('whirlpool',$password);
+
 
         try {
             $sql_add_user = "INSERT INTO USERS (userID, firstName, lastName, userName, email, password, pic, joiningDate) VALUES (NULL , '$firstName' , '$lastName' , '$userName' , '$email' , '$password' , '$pic ', CURRENT_TIMESTAMP )";
@@ -119,19 +119,18 @@ class User{
     function update(){
 
         // update query
-        $query = "UPDATE USERS SET firstName = :firstName, lastName = :lastName, email = :email, password = :password
+
+
+        $query = "UPDATE USERS SET firstName = :firstName, lastName = :lastName, email = :email
                   WHERE userName = :userName";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
-        $this->password = hash('whirlpool',$this->password);
-
         // bind new values
         $stmt->bindParam(':firstName', $this->firstName);
         $stmt->bindParam(':lastName', $this->lastName);
         $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':userName', $this->userName);
 
         // execute the query
@@ -188,13 +187,13 @@ class User{
     function login(){
 
         // query to read single record
-        $query = "SELECT * FROM USERS WHERE userName = ? LIMIT 0,1";
+        $query = "SELECT * FROM USERS WHERE userName = :userName LIMIT 0,1";
 
         // prepare query statement
         $stmt = $this->conn->prepare( $query );
 
         // bind id of user to be updated
-        $stmt->bindParam(1, $this->userName);
+        $stmt->bindParam(':userName', $this->userName);
 
         // execute query
         $stmt->execute();
@@ -216,7 +215,6 @@ class User{
     }
 
     function getUserInfo(){
-
         // query to read single record
         $query = "SELECT * FROM USERS WHERE userName = ? LIMIT 0,1";
 
@@ -281,4 +279,50 @@ class User{
         return true;
     }
 
+    function changePassword(){
+        // query to read single record
+        $query = "SELECT * FROM USERS WHERE userName = ? LIMIT 0,1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->userName);
+        // execute query
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->passwordHash = $row['password'];
+
+        if(!hash_equals($this->passwordHash,hash('whirlpool',$this->password))){
+
+            $this->password = hash('whirlpool',$this->password);
+
+            $query = "UPDATE USERS SET password = :password
+                  WHERE userName = :userName";
+
+            // prepare query statement
+            $stmt = $this->conn->prepare($query);
+
+            // bind new values
+            $stmt->bindParam(':userName', $this->userName);
+            $stmt->bindParam(':password', $this->password);
+
+            // execute the query
+            if($stmt->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+        else{
+            return false;
+        }
+
+    }
 }

@@ -14,7 +14,7 @@ $post = new Post($db);
 // query posts
 $stmt = $post->read();
 $num = $stmt->rowCount();
-
+$size = $num;
 // posts array
 global $posts_arr;
 $posts_arr = array();
@@ -23,7 +23,7 @@ if($num>0){
     // retrieve our table contents
     while ($num!=0){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $post_item=array($row['postID'], $row['venueID'], $row['userID'],$row['content'], $row['postDate'], $row['pic1'], $row['pic2'], $row['pic3'], $row['likes']);
+        $post_item=array($row['postID'], $row['venueName'], $row['userID'],$row['content'], $row['postDate'], $row['pic'],$row['likes']);
         array_push($posts_arr, $post_item);
         $num = $num - 1;
     }

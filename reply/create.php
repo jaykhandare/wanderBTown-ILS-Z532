@@ -2,11 +2,6 @@
 session_start();
 
 // required headers
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // get database connection
 include_once '../config/database.php';
@@ -34,9 +29,7 @@ $reply->postID = $_POST["postID"];
 
 // create the reply
 if($reply->create()){
-    echo '{';
-    echo '"message": "Reply was added."';
-    echo '}';
+    header("Location:../html/homepage.php");
 }
 // if unable to create the reply, tell the user
 else{

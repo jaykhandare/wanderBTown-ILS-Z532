@@ -1,3 +1,23 @@
+<?php
+session_start();
+include_once '../post/venuePosts.php';
+
+if (isset($_GET['name'])) {
+    $venueName = $_GET['name'];
+}
+$arr = myFunction($venueName);
+
+//all venue details
+$venue_item = $arr[0];
+
+//all posts at this venue
+$post_arr = $arr[1];
+
+//all replies to these posts
+$replies_arr = $arr[2];
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,20 +26,28 @@
     <link href="../css/bootstrap.css" rel='stylesheet' type='text/css'/>
     <link href="../css/style2.css" rel='stylesheet' type='text/css'/>
     <script src="../js/jquery-3.2.1.min.js"></script>
-    <script src="../js/homePage.js"></script>
     <script src="../js/jquery.session.js"></script>
-
-
+    <style>
+        .floating-box {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            margin: 5px;
+        }
+    </style>
 </head>
+
 <body>
+
 <header>
     <div class="container">
         <a href="homepage.php"><img style="float: left" src="../images/logooo.png" class="logo" alt="" width="150"></a>
         <h1 align="center">Wander<span name="btown">BTOWN</span></h1>
         <h4 align="center">Live . Learn . Explore</h4>
-        <div id="Profile_name"></div>
+        <div id="Profile_name"><?= "Hello,".$_SESSION['userName'] ?></div>
     </div>
 </header>
+
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
@@ -45,97 +73,109 @@
 </nav>
 
 <section>
-    <?php
-    include_once '../venue/read.php';
-    ?>
-
-
     <div class="container">
-        <div class="col-md-8">
-
-            <?  foreach ($venues_arr as &$value) {
-                    if($value!=0){
-                        if($value[0]=='IMU'){     /*change "a" with venueName*/
-                ?>
-
-                <?  /*venue items are available as $value[0][0]*/    ?>
-
-                <div class="panel panel-default post">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <a href="profile.html" class="post-avatar thumbnail"><img src="../images/back.jpg" alt="">
-                                    <div class="text-center"><?= $value[0];?></div>
-                                </a>
-                                <div class="likes text-center"><?= $value[1];?></div>
-                            </div>
-                            <div class="col-sm-10">
-                                <div class="bubble">
-                                    <div class="pointer">
-                                        <p><?= $value[2];?></p>
-                                    </div>
-                                    <div class="pointer-border"></div>
-                                </div>
-                                <p class="post-actions"><a href="#">Comment</a> - <a href="#">Like</a> </p>
-                                <div class="comment-form">
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="enter comment">
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Add</button>
-                                    </form>
-                                </div>
-                                <div class="clearfix"></div>
-
-                                <div class="comments">
-                                    <div class="comment">
-                                        <a href="#" class="comment-avatar pull-left"><img src="../images/cutmypic.png"
-                                                                                          alt=""></a>
-                                        <div class="comment-text">
-                                            <p><?= $value[2]; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="comment">
-                                        <a href="#" class="comment-avatar pull-left"><img src="../images/jay_round.png"
-                                                                                          alt=""></a>
-                                        <div class="comment-text">
-                                            <p><?= $value[2];?> &#x2602;</p>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?}}else{echo "No Venues added at this time.";}}  ?>
-        </div>
         <div class="row">
-            <div class="col-md-4">
-                <div class="panel panel-default friends">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Must Visit Places</h3>
+                        <h4 class="panel-title"><?=strtoupper($venue_item[0])?></h4>
                     </div>
                     <div class="panel-body">
-                        <ul>
-                            <li><a href="eskenazi.php" class="thumbnail"><img src="../images/museum.jpg" alt=""></a>
-                            </li>
-                            <li><a href="imu.html" class="thumbnail"><img src="../images/imu-frontdoors.jpg" alt=""></a>
-                            </li>
-                            <li><a href="lakemonroe.html" class="thumbnail"><img src="../images/lake.jpg" alt=""></a>
-                            </li>
-                            <li><a href="motherbears.html" class="thumbnail"><img src="../images/motherbears.jpg"
-                                                                                  alt=""></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                        <a class="btn btn-primary" href="#">View All Places</a>
+                        <img src="../images/museum.jpg" alt="default_image" style="width:400px;height:200px;border:0;">
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6">
+                <br/>
+                <br/>
+                <p>
+                    What is this place: <?=$venue_item[1]?>
+                </p>
+                <br/>
+                <br/>
+                <p>
+                    Timings and Contacts: <?=$venue_item[2]?>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">POST</h4>
+            </div>
+            <div class="panel-body">
+                <input type="text" name="content" value="default content" size="100">
+                <br/>
+                <input type="text" class="form-control floating-box" name="tag1" placeholder="#tag">
+                <input type="text" class="form-control floating-box" name="tag2" placeholder="#tag2">
+                <input type="text" class="form-control floating-box" name="tag2" placeholder="#tag3">
+
+            </div>
+
         </div>
 
     </div>
+
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Venue posts</h4>
+            </div>
+            <div class="panel-body">
+                <p>Post content</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button type="button">Like!</button>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <p>Usrname</p>
+                        <p>posting date</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+
+                    <div>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reply object</p>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <p>reply copntent</p>
+
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <p>username</p>
+                        <p>reply date</p>
+
+                    </div>
+
+                </div>
+                <div >
+                    <input type="text" name="comment" value="enter comment" size="100">
+                    <button type="button">Submit!</button>
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
 </section>
 
 </body>
