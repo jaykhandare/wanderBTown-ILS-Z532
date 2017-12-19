@@ -3,7 +3,7 @@ class Database{
 
     // specify your own database credentials
     private $host = "localhost";
-    private $db_name = "wanderBTownTest";
+    private $db_name = "wanderBTown";
     private $username = "root";
     private $password = "Jayendra_31";
     public $conn;

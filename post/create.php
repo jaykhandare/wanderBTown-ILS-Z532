@@ -29,11 +29,15 @@ $post->content = $_POST["content"];
 //$post->pic = $_POST["pic"];
 $post->likes = 0;
 $post->userID = $_POST["userID"];
+$post->tag1 = $_POST["tag1"];
+$post->tag2 = $_POST["tag2"];
+$post->tag3 = $_POST["tag3"];
+
 
 
 // create a post
 if($post->create()){
-    header("Location: ../html/homepage.php");
+    header("Location: ../html/venue.php?name=".$post->venueName);
 
 /*    echo '{';
     echo '"message": "Post was made."';

@@ -29,11 +29,14 @@ class Post
         $venueName = $this->venueName;
         $userID = $this->userID;
         $content = $this->content;
-        $pic = $this->pic;
+//        $pic = $this->pic;
         $likes = $this->likes;
+        $tag1=$this->tag1;
+        $tag2=$this->tag2;
+        $tag3=$this->tag3;
 
         try {
-            $sql_add_post = "INSERT INTO POSTS (postID,venueName,userID,content,pic,likes,postDate) VALUES (NULL,'$venueName','$userID','$content','$pic','$likes', CURRENT_TIMESTAMP )";
+            $sql_add_post = "INSERT INTO POSTS (postID,venueName,userID,content,likes,tag1,tag2,tag3,postingDate) VALUES (NULL,'$venueName','$userID','$content', '$likes', '$tag1' , '$tag2' , '$tag3' , CURRENT_TIMESTAMP )";
             $this->conn->exec($sql_add_post);
             return true;
         } catch (PDOException $e) {

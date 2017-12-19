@@ -32,7 +32,7 @@ function myFunction($venueName)
         while ($num != 0) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $post_item = array($row['userName'],$row['postID'],$row['content'],$row['likes'],
-                $row['tag1'],$row['tag2'],$row['tag3'],$row['postingDate']);
+                $row['tag1'],$row['tag2'],$row['tag3'],$row['postingDate'],$venue->venueName);
             array_push($posts_arr, $post_item);
             $num = $num - 1;
         }
@@ -57,7 +57,6 @@ function myFunction($venueName)
             array_push($replies_arr, 0);
         }
     }
-
     $major_arr = array($venue_item,$posts_arr,$replies_arr);
     return $major_arr;
 /*    for($i = 0; $i < $postNum; $i++) {

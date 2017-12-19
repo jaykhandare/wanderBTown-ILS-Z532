@@ -37,7 +37,6 @@ session_start();
             <ul class="nav navbar-nav">
                 <li><a href="homepage.php">Home</a></li>
                 <li class="active"><a href="profile.php">Profile</a></li>
-                <li><a href="tagSearch.php">Tag Search</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>

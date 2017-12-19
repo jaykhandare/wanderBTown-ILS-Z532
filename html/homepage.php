@@ -44,7 +44,6 @@ session_start();
             <ul class="nav navbar-nav">
                 <li class="active"><a href="homepage.php">Home</a></li>
                 <li><a href="profile.php">Profile</a></li>
-                <li><a href="tagSearch.php">Tag Search</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </div>
@@ -59,7 +58,7 @@ session_start();
 
         if($venues_arr[$i][0]=='imu') $imu = $i;
         if($venues_arr[$i][0]=='artmuseum') $artmuseum = $i;
-        if($venues_arr[$i][0]=='lakemonroe') $lakemonroe = $i;
+        if($venues_arr[$i][0]=='huhot') $huhot = $i;
         if($venues_arr[$i][0]=='motherbears') $motherbears = $i;
 
     }
@@ -74,19 +73,19 @@ session_start();
                     <div class="panel-body">
                         <ul>
                             <div>
-                                <li><a href="../html/venue.php?name=imu" style="width: 500px" class="thumbnail">Indiana Memorial Union<img src="../images/imu-frontdoors.jpg" alt=""></a></li>
+                                <li><a href="../html/venue.php?name=imu" style="width: 500px" class="thumbnail">Indiana Memorial Union<img src="../images/imu.jpg" alt=""></a></li>
                                 <p><strong>Details:<?=$venues_arr[$imu][1] ?></p>
                                 <p>Contact:<?=$venues_arr[$imu][2] ?></p>
                             </div>
                             <div>
-                                <li><a href="../html/venue.php?name=artmuseum" style="width: 500px" class="thumbnail">Eskenazi Arts Museum<img src="../images/museum.jpg" alt=""></a></li>
+                                <li><a href="../html/venue.php?name=artmuseum" style="width: 500px" class="thumbnail">Eskenazi Arts Museum<img src="../images/artmuseum.jpg" alt=""></a></li>
                                 <p><strong>Details:<?=$venues_arr[$artmuseum][1] ?></p>
                                 <p>Contact:<?=$venues_arr[$artmuseum][2] ?></p>
                             </div>
                             <div>
-                                <li><a href="../html/venue.php?name=lakemonroe" style="width: 500px" class="thumbnail">Lake Monroe<img src="../images/lake.jpg" alt=""></a></li>
-                                <p><strong>Details:<?=$venues_arr[$lakemonroe][1] ?></p>
-                                <p>Contact:<?=$venues_arr[$lakemonroe][2] ?></p>
+                                <li><a href="../html/venue.php?name=huhot" style="width: 500px" class="thumbnail">Hu Hot Grill<img src="../images/huhot.jpg" alt=""></a></li>
+                                <p><strong>Details:<?=$venues_arr[$huhot][1] ?></p>
+                                <p>Contact:<?=$venues_arr[$huhot][2] ?></p>
                             </div>
                             <div>
                                 <li><a href="../html/venue.php?name=motherbears" style="width: 500px" class="thumbnail">Mother Bears<img src="../images/motherbears.jpg" alt=""></a></li>

@@ -25,11 +25,11 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 $reply->content = $_POST["content"];
 $reply->userID = $_POST["userID"];
 $reply->postID = $_POST["postID"];
-
+$venueName = $_POST["venueName"];
 
 // create the reply
 if($reply->create()){
-    header("Location:../html/homepage.php");
+    header("Location: ../html/venue.php?name=".$venueName);
 }
 // if unable to create the reply, tell the user
 else{
