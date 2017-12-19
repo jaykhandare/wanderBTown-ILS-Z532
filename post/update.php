@@ -30,26 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if(isset($_POST["content"])) {
     $post->content = $_POST["content"];
 }
-if(isset($_POST["tag1"])) {
-    $post->tag1 = $_POST["tag1"];
-}
-if(isset($_POST["tag2"])) {
-    $post->tag2 = $_POST["tag2"];
-}
-if(isset($_POST["tag3"])) {
-    $post->tag3 = $_POST["tag3"];
-}
 if(isset($_POST["venue"])) {
-    $post->venue = $_POST["venue"];
+    $post->venueName = $_POST["venueName"];
 }
-if(isset($_POST["pic1"])) {
-    $post->pic1 = $_POST["pic1"];
-}
-if(isset($_POST["pic2"])) {
-    $post->pic2 = $_POST["pic2"];
-}
-if(isset($_POST["pic3"])) {
-    $post->pic3 = $_POST["pic3"];
+if(isset($_POST["pic"])) {
+    $post->pic = $_POST["pic"];
 }
 
 

@@ -19,11 +19,11 @@ $db = $database->getConnection();
 $user = new User($db);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["username"])) {
+    if (empty($_POST["userName"])) {
         echo "username is required";
     }
     else {
-        $user->username = $_POST["username"];
+        $user->userName = $_POST["userName"];
     }
 }
 

@@ -1,18 +1,16 @@
 <?php
 session_start();
 
-// required headers
-
 // get database connection
 include_once '../config/database.php';
 
 // instantiate reply object
-include_once '../objects/reply.php';
+include_once '../objects/venue.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-$reply = new Reply($db);
+$venue = new Venue($db);
 
 if($_SERVER["REQUEST_METHOD"]!="POST") {
     echo '{';
@@ -22,18 +20,19 @@ if($_SERVER["REQUEST_METHOD"]!="POST") {
 }
 
 // set reply property values
-$reply->content = $_POST["content"];
-$reply->userID = $_POST["userID"];
-$reply->postID = $_POST["postID"];
+$venue->details = $_POST["details"];
+$venue->contact = $_POST["contact"];
 
 
 // create the reply
-if($reply->create()){
-    header("Location:../html/homepage.php");
+if($venue->create()){
+    echo '{';
+    echo '"message": "Venue was added."';
+    echo '}';
 }
 // if unable to create the reply, tell the user
 else{
     echo '{';
-    echo '"message": "Unable to add the reply."';
+    echo '"message": "Unable to add the Venue."';
     echo '}';
 }

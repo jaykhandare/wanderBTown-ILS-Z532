@@ -38,9 +38,7 @@ $post_item = array(
     "tag3" => $post->tag3,
     "venue" => $post->venue,
     "postDate" => $post->postDate,
-    "pic1" => $post->pic1,
-    "pic2" => $post->pic2,
-    "pic3" => $post->pic3,
+    "pic" => $post->pic,
     "likes" => $post->likes
 );
 

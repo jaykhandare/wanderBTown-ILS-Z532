@@ -27,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $stmt = $post->search($keywords);
 $num = $stmt->rowCount();
 
+// posts array
+$posts_arr=array();
 // check if more than 0 record found
 if($num>0){
-    // posts array
-    $posts_arr["records"]=array();
     // retrieve our table contents
     while ($num!=0){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -43,18 +43,13 @@ if($num>0){
             "tag3" => $row['tag3'],
             "venue" => $row['venue'],
             "postDate" => $row['postDate'],
-            "pic1" => $row['pic1'],
-            "pic2" => $row['pic2'],
-            "pic3" => $row['pic3'],
+            "pic" => $row['pic'],
             "likes" => $row['likes']
         );
-        array_push($posts_arr["records"], $post_item);
+        array_push($posts_arr, $post_item);
         $num = $num - 1;
     }
-    echo json_encode($posts_arr["records"]);
 }
 else{
-    echo json_encode(
-        array("message" => "No records found.")
-    );
+    array_push($posts_arr, 0);
 }

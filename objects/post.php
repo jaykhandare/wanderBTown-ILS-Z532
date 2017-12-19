@@ -1,6 +1,4 @@
 <?php
-include_once '/home/jkhandar/PhpstormProjects/wanderBTown_test/wanderBTown-ILS-Z532/config/database.php';
-
 class Post
 {
     // database connection
@@ -8,55 +6,46 @@ class Post
 
     // object properties
     public $postID;
-    public $content;
+    public $venueName;
     public $userID;
+    public $content;
+    public $pic;
     public $tag1;
     public $tag2;
     public $tag3;
-    public $venue;
-    public $pic1;
-    public $pic2;
-    public $pic3;
-    public $postDate;
     public $likes;
+    public $postDate;
 
 
     // constructor with $db as database connection
-    public function __construct()
+    public function __construct($db)
     {
-        $db = new Database();
-        $this->conn = $db->getConnection();
+        $this->conn = $db;
     }
 
     //  create a post
     function create(){
 
-        $content = $this->content;
-        $tag1 = $this->tag1;
-        $tag2 = $this->tag2;
-        $tag3 = $this->tag3;
-        $venue = $this->venue;
-        $pic1 = $this->pic1;
-        $pic2 = $this->pic2;
-        $pic3 = $this->pic3;
-        $likes = $this->likes;
+        $venueName = $this->venueName;
         $userID = $this->userID;
+        $content = $this->content;
+        $pic = $this->pic;
+        $likes = $this->likes;
 
         try {
-            $sql_add_post = "INSERT INTO POSTS_TAGS (postID,content,userID,tag1,tag2,tag3,venue,pic1,pic2,pic3,likes,postDate) VALUES (NULL,'$content','$userID','$tag1','$tag2','$tag3','$venue','$pic1','$pic2','$pic3','$likes', CURRENT_TIMESTAMP )";
+            $sql_add_post = "INSERT INTO POSTS (postID,venueName,userID,content,pic,likes,postDate) VALUES (NULL,'$venueName','$userID','$content','$pic','$likes', CURRENT_TIMESTAMP )";
             $this->conn->exec($sql_add_post);
             return true;
         } catch (PDOException $e) {
             echo $e;
             return false;
         }
-
     }
 
     //  delete a post
     function delete(){
         // delete query
-        $query = "DELETE FROM POSTS_TAGS WHERE postID = ?";
+        $query = "DELETE FROM POSTS WHERE postID = ?";
 
         // prepare query
         $stmt = $this->conn->prepare($query);
@@ -77,21 +66,17 @@ class Post
     //  update a post
     function update(){
         // update query
-        $query = "UPDATE POSTS_TAGS SET content = :content, tag1 = :tag1, tag2 = :tag2, tag3 = :tag3, venue = :venue, pic1 = :pic1, pic2 = :pic2, pic3 = :pic3
-                  WHERE postID = :postID";
+        $query = "UPDATE POSTS SET content = :content, venueName = :venueName, pic = :pic
+                  WHERE postID = :postID AND userID = :userID";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
         // bind new values
         $stmt->bindParam(':content', $this->content);
-        $stmt->bindParam(':tag1', $this->tag1);
-        $stmt->bindParam(':tag2', $this->tag2);
-        $stmt->bindParam(':tag3', $this->tag3);
-        $stmt->bindParam(':venue', $this->venue);
-        $stmt->bindParam(':pic1', $this->pic1);
-        $stmt->bindParam(':pic2', $this->pic2);
-        $stmt->bindParam(':pic3', $this->pic3);
+        $stmt->bindParam(':userID', $this->userID);
+        $stmt->bindParam(':venueName', $this->venueName);
+        $stmt->bindParam(':pic', $this->pic);
         $stmt->bindParam(':postID', $this->postID);
 
         // execute the query
@@ -106,7 +91,7 @@ class Post
     //  read posts
     function read(){
         // select all query
-        $query = "SELECT * FROM POSTS_TAGS";
+        $query = "SELECT * FROM POSTS";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -121,7 +106,7 @@ class Post
     function readOne(){
 
         // query to read single record
-        $query = "SELECT * FROM POSTS_TAGS WHERE postID = ? LIMIT 0,1";
+        $query = "SELECT * FROM POSTS WHERE postID = ? LIMIT 0,1";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -140,10 +125,8 @@ class Post
         $this->tag1 = $row["tag1"];
         $this->tag2 = $row["tag2"];
         $this->tag3 = $row["tag3"];
-        $this->venue = $row["venue"];
-        $this->pic1 = $row["pic1"];
-        $this->pic2 = $row["pic2"];
-        $this->pic3 = $row["pic3"];
+        $this->venueName = $row["venueName"];
+        $this->pic = $row["pic"];
         $this->likes = $row["likes"];
         $this->userID = $row["userID"];
         $this->postDate = $row["postDate"];
@@ -152,7 +135,7 @@ class Post
     //  search in a post
     function search($keywords){
         // select all query
-        $query = "SELECT * FROM POSTS_TAGS WHERE tag1 LIKE ? OR tag2 LIKE ? OR tag3 LIKE ?";
+        $query = "SELECT * FROM POSTS WHERE tag1 LIKE ? OR tag2 LIKE ? OR tag3 LIKE ?";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -176,7 +159,7 @@ class Post
         $this->likes = $this->likes + 1;
 
         // update query
-        $query = "UPDATE POSTS_TAGS SET  likes = :likes WHERE postID = :postID";
+        $query = "UPDATE POSTS SET  likes = :likes WHERE postID = :postID";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -196,13 +179,60 @@ class Post
 
     function getUserPosts(){
         // query to read single record
-        $query = "SELECT * FROM POSTS_TAGS WHERE userID = ?";
+        $query = "SELECT * FROM POSTS WHERE userID = ?";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
 
         // bind id of user to be updated
         $stmt->bindParam(1, $this->userID);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    function notVisitedPlaces(){
+        // query to read single record
+        $query = "SELECT VENUES.venueName, VENUES.details, VENUES.contact FROM POSTS ,VENUES  WHERE POSTS.userID = ? AND POSTS.venueName <> VENUES.venueName";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->userID);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    function visitedPlaces(){
+        // query to read single record
+        $query = "SELECT VENUES.venueName, VENUES.details, VENUES.contact FROM POSTS ,VENUES  WHERE POSTS.userID = ? AND POSTS.venueName = VENUES.venueName";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // bind id of user to be updated
+        $stmt->bindParam(1, $this->userID);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+
+    function venuePosts($venueName){
+        $query = "SELECT USERS.userName,POSTS.postID,POSTS.content,POSTS.likes,POSTS.tag1,POSTS.tag2,POSTS.tag3,POSTS.postingDate FROM USERS, POSTS ,VENUES  
+                  WHERE VENUES.venueName = ? AND POSTS.venueName = VENUES.venueName 
+                                             AND POSTS.userID = USERS.userID";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        // bind id of user to be updated
+        $stmt->bindParam(1, $venueName);
 
         // execute query
         $stmt->execute();

@@ -15,9 +15,9 @@
     <title>Login and Registration Form</title>
     <link rel="stylesheet" type="text/css" href="../css/register.css"/>
     <script src="../js/jquery-3.2.1.min.js"></script>
-<!--
-    <script src="../js/create_user.js"></script>
--->
+    <!--
+        <script src="../js/create_user.js"></script>
+    -->
     <script src="../js/jquery.session.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -37,7 +37,7 @@
             <a class="hiddenanchor" id="tologin"></a>
             <div id="wrapper">
                 <div id="login" class="animate form">
-                    <form id="login_check" action="../user/login.php" autocomplete="on">
+                    <form id="login_check" action="../user/login.php" autocomplete="on" method="post">
                         <h1>Log in</h1>
                         <p>
                             <label for="username" class="uname"> Your email or username </label>
@@ -56,11 +56,17 @@
                         <p class="login button">
                             <input type="submit" value="Login"/>
                         </p>
-                        <p class="change_link">
-                            Not a member yet ?
-                            <a href="#toregister" class="to_register">Join us</a>
-                        </p>
+                        <div id="failed_login"><?php
+                            if (isset($_GET['Message'])) {
+                                echo $_GET['Message'];
+                            }
+                            ?>
+                        </div>
                     </form>
+                    <p class="change_link">
+                        Not a member yet ?
+                        <a href="#toregister" class="to_register">Join us</a>
+                    </p>
                 </div>
 
                 <div id="register" class="animate form">
@@ -105,34 +111,7 @@
                             <a href="#tologin" class="to_register"> Go and log in </a>
                         </p>
                     </form>
-
                 </div>
-
-                <!--
-                                <div id="interests" class="animate form">
-                                    <form action="php/create.php" autocomplete="on">
-                                        <p>
-                                            <label for="Interests_1" class="uname">Interest One</label>
-                                            <input id="Interests_1" name="Interest_1" required="required" type="text"
-                                                   placeholder="eg. Food"/>
-                                        </p>
-
-                                        <p>
-                                            <label for="Interests_2" class="uname">Interest One</label>
-                                            <input id="Interests_2" name="Interest_2" required="required" type="text"
-                                                   placeholder="eg. Food"/>
-                                        </p>
-                                        <p>
-                                            <label for="Interests_3" class="uname">Interest One</label>
-                                            <input id="Interests_3" name="Interest_3" required="required" type="text"
-                                                   placeholder="eg. Food"/>
-                                        </p>
-
-                                    </form>
-
-                                </div>
-                -->
-
             </div>
         </div>
     </section>

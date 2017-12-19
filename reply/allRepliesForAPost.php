@@ -1,9 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: access");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Credentials: true");
-header('Content-Type: application/json');
 
 // include database and object files
 include_once '../config/database.php';
@@ -29,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $stmt = $reply->allRepliesForAPost();
 $num = $stmt->rowCount();
 
+// replies array
+$replies_arr=array();
 // check if more than 0 record found
 if($num>0){
-    // replies array
-    $replies_arr["records"]=array();
     // retrieve our table contents
     while ($num!=0){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -42,13 +37,12 @@ if($num>0){
             "userID" => $row['userID'],
             "replyDate" => $row['replyDate']
         );
-        array_push($replies_arr["records"], $reply_item);
+        array_push($replies_arr, $reply_item);
         $num = $num - 1;
     }
-    return json_encode($replies_arr["records"]);
 }
 else{
-    return json_encode(
-        array("message" => "No records found.")
-    );
+    array_push($replies_arr, 0);
 }
+
+return $replies_arr;

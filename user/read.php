@@ -20,10 +20,7 @@ $user = new User($db);
 $stmt = $user->read();
 $num = $stmt->rowCount();
 
-// users array
-$users_arr["records"] = array();
-
-$users_arr["records"] = array();
+$users_arr = array();
 // check if more than 0 record found
 if ($num > 0) {
     // retrieve our table contents
@@ -31,11 +28,9 @@ if ($num > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $user_item = array($row['id'], $row['firstName'], $row['lastName'], $row['email'],
             $row['username'], $row['joiningDate']);
-        array_push($users_arr["records"], $user_item);
+        array_push($users_arr, $user_item);
         $num = $num - 1;
     }
 } else {
-    array_push($users_arr["records"], json_encode(
-        array("message" => "No records found.")
-    ));
+    array_push($users_arr, 0);
 }
