@@ -7,8 +7,14 @@ Saketh Pilli
 
 PHP project as a requirement for the course 
 
-First create mysql database called "wanderBTown".
+You can modify this code to suit any other city by following some basic steps.
 
-then add VENUES.csv information into the database after creating a user.
+First create mysql database called "<name of the place>".
 
+Then add the data related to various venues in the database in "VENUES" table.
 
+Add related pics to various venues in the /images folder.
+
+Apart from this, you would have to make some changes in the code at various locations.
+
+You are good to go. 
